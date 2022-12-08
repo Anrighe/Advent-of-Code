@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 
 /**
  * @brief Swaps two elements of an array of integers
