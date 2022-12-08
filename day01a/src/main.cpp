@@ -8,30 +8,32 @@ int maxCalories(std::string pathToFile)
     int partialSum = 0;
     int max = 0;
 
-    f.open(pathToFile); 
-
-    if (!f)
+    try
     {
-        std::cerr<<"Error while opening the file " + pathToFile;
-        return -1;
-    }    
+        f.open(pathToFile); 
 
-    while (f.is_open() == true && f.eof() == false)
-    {
-        std::getline(f, buffer);
-        
-        if (buffer.compare("") == true) //True if a separator has been found  
-        {   
-            if (max < partialSum)
-            {
-                max = partialSum;
-                partialSum = 0;
+        while (f.is_open() == true && f.eof() == false)
+        {
+            std::getline(f, buffer);
+            
+            if (buffer.compare("") == true) //True if a separator has been found  
+            {   
+                if (max < partialSum)
+                {
+                    max = partialSum;
+                    partialSum = 0;
+                }
+                else
+                    partialSum = 0;
             }
             else
-                partialSum = 0;
+                partialSum += stoi(buffer);
         }
-        else
-            partialSum += stoi(buffer);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr<<e.what();
+        exit(-1);
     }
 
     f.close();
