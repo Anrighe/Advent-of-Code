@@ -72,7 +72,7 @@ int* maxCalories(std::string pathToFile)
 }
 
 /**
- * @param argv The first argument is path of the input file 
+ * @param argv The first argument is the path of the input.txt file 
  */
 int main(int argc, char *argv[])
 {

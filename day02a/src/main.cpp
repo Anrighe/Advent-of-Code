@@ -3,12 +3,12 @@
 
 /*
 Shapes:
-    opponent: A for Rock, B for Paper, and C for Scissors
-    response: X for Rock, Y for Paper, and Z for Scissors
+    opponent:   A for Rock, B for Paper, and C for Scissors
+    your move:  X for Rock, Y for Paper, and Z for Scissors
 
 Score:
-    shape you selected (1 for Rock, 2 for Paper, and 3 for Scissors)
-    outcome of the round (0 if you lost, 3 if the round was a draw, and 6 if you won)
+    shape you selected:     (1 for Rock, 2 for Paper, and 3 for Scissors)
+    outcome of the round:   (0 if you lost, 3 if the round was a draw, and 6 if you won)
 */
 
 int shapePoints(char myMove)
@@ -80,7 +80,7 @@ int scoreCalculator(std::string pathToFile)
 }
 
 /**
- * @param argv The first argument is path of the input file 
+ * @param argv The first argument is the path of the input.txt file 
  */
 int main(int argc, char *argv[])
 {
