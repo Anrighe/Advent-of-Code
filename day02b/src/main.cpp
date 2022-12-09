@@ -100,7 +100,6 @@ int scoreCalculator(std::string pathToFile)
     char opponentMove;
     char secondColumn;
     char myMove;
-    std::string buffer;
     std::ifstream f; 
     int score = 0;
     try
