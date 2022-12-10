@@ -29,7 +29,6 @@ char findCommonChar(std::string firstRucksack, std::string secondRucksack, std::
         element = firstRucksack[i];
         if (secondRucksack.find(element) != std::string::npos && thirdRucksack.find(element) != std::string::npos ) // found
             return element;
- 
     }
     std::cerr<<"Did not find an error in the compartments"<<std::endl;
     exit(-2);
