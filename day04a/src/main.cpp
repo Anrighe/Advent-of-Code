@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <map>
 #include <string>
 
 
@@ -23,25 +22,6 @@ bool isAssignmentContained(int firstValueFirstElf, int secondValueFirstElf, int 
         return false;
 }
 
-
-std::map<char, int> generateConversionMap()
-{
-    std::map<char, int> conversionMap;
-    int i = 1;
-    for (char charIterator = 'a'; charIterator <= 'z'; charIterator++)
-    {
-        conversionMap.insert(std::pair<char, int>(charIterator, i));
-        i++;
-    }
-    for (char charIterator = 'A'; charIterator <= 'Z'; charIterator++)
-    {
-        conversionMap.insert(std::pair<char, int>(charIterator, i));
-        i++;
-    }
-    return conversionMap;
-}
-
-
 int assignmentContainedCalculator(std::string pathToFile)
 {
     int containedCount = 0;
@@ -55,7 +35,6 @@ int assignmentContainedCalculator(std::string pathToFile)
     int firstValueFirstElf, secondValueFirstElf;
     int firstValueSecondElf, secondValueSecondElf;
 
-    std::map<char, int> conversionMap = generateConversionMap();
     try
     {
         f.open(pathToFile);
