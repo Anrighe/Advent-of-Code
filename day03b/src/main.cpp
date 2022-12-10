@@ -58,10 +58,6 @@ int priorityErrorCalculator(std::string pathToFile)
                 f>>firstRucksack;
                 f>>secondRucksack;
                 f>>thirdRucksack;    
-
-                std::cout<<"firstRucksack: "<<firstRucksack<<std::endl;
-                std::cout<<"secondRucksack: "<<secondRucksack<<std::endl;
-                std::cout<<"thirdRucksack: "<<thirdRucksack<<std::endl;
                 commonChar = findCommonChar(firstRucksack, secondRucksack, thirdRucksack);
                 totalPriority += conversionMap.at(commonChar);
             }
