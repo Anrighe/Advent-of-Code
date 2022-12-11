@@ -18,7 +18,7 @@ bool areCharDifferent(char c1, char c2, char c3, char c4)
  * @brief finds the index of the datastream where the first occurrence of the marker ends
  * @param pathToFile 
  * @return std::string returns the index of the last char of the marker.
- *  The index returned counts the first char of the string as the char of index 1
+ *  The index returned counts from the first char of the string as the char having index 1
  */
 int markerFinder(std::string pathToFile)
 {
@@ -33,6 +33,7 @@ int markerFinder(std::string pathToFile)
 
         for (long unsigned int i = 0; i < buffer.length(); i++)
         {
+
             if (i >= 3)
             {
                 c1 = buffer[i-3];
@@ -40,7 +41,11 @@ int markerFinder(std::string pathToFile)
                 c3 = buffer[i-1];
                 c4 = buffer[i];
                 if (areCharDifferent(c1, c2, c3, c4) == true)
+                {
+                    std::cout<<"("<<c1<<", "<<c2<<", "<<c3<<", "<<c4<<")"<<std::endl;
                     return i+1;
+                }    
+
             }
         }
     }
