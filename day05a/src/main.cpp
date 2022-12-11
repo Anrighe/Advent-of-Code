@@ -33,7 +33,7 @@ void PrintStack(std::stack<char> s)
     s.push(x);
 }
 
-bool is_digits(const std::string str)
+bool isDigits(const std::string str)
 {
     return str.find_first_not_of("0123456789") == std::string::npos;
 }
@@ -128,11 +128,11 @@ std::stack<char> * startingStackGenerator(std::string pathToFile)
             }
             
         } 
-        for (int i = 0; i<stackCount; i++)
-        {
+        //for (int i = 0; i<stackCount; i++)
+        //{
             //std::cout<<"DENTRO FOR STACK"<<std::endl;
-            PrintStack(stacks[i]); 
-        }    
+            //PrintStack(stacks[i]); 
+        //}    
         //std::cout<<"PRIMO ELEMENTO DELLO STACK 9: "<<stacks[9-1].top()<<std::endl;
 
     }
@@ -151,39 +151,50 @@ std::string reorganizer(std::string pathToFile)
 {
     std::ifstream f; 
     std::string topCrates = "";
-    //std::string buffer = "";
-    int buffer = 0;
-    int moveCount, stack1, stack2 = 0;
+    std::string buffer = "";
+    std::string separator = " ";
+    int moveCount;
+    int stack1;
+    int stack2;
+    bool firstInstruction = true;
 
     std::stack<char> * stacks = startingStackGenerator(pathToFile);
-
 
     try
     {
         f.open(pathToFile);
 
+        //positioning fstream in the correct position
+        while(buffer.find("move") == std::string::npos)
+            f>>buffer;
+
         while (f.is_open() == true && f.eof() == false)
         {
             if (f.eof() == false)
             {
-                //f.getline(firstElfChar, 100, separator1);
-                //f.getline(secondElfChar, 100, separator2);
-                //firstElf = firstElfChar;
-                //secondElf = secondElfChar;
-                //f.getline(buffer, 100);
-                //std::cout<<"a"<<std::endl;
+                if (firstInstruction == true)
+                {
+                    f>>moveCount;   //moveCount
+                    f>>buffer;      //from
+                    f>>stack1;      //stack1
+                    f>>buffer;      //to
+                    f>>stack2;      //stack2
 
-                f>>buffer; 
-                std::cout<<buffer<<std::endl;
+                    firstInstruction = false;
+                }
+                else
+                {
+                    f>>buffer;      //move
+                    f>>moveCount;   //moveCount
+                    f>>buffer;      //from
+                    f>>stack1;      //stack1
+                    f>>buffer;      //to
+                    f>>stack2;      //stack2
+                }
+                std::cout<<"moveCount: "<<moveCount<<", stack1: "<<stack1<<", stack2: "<<stack2<<std::endl;
 
-                // TODO: THESE DO NOT WORK FOR SOME REASON???
-                //f>>moveCount; //how many container are moved
-                //f>>buffer;
-                //f>>stack1; //from where
-                //f>>buffer;
-                //f>>stack2; //to where
 
-                //std::cout<<moveCount<<" "<<stack1<<" "<<stack2<<std::endl;
+
                     
             }
         } 
