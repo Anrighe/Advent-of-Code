@@ -33,7 +33,6 @@ int markerFinder(std::string pathToFile)
 
         for (long unsigned int i = 0; i < buffer.length(); i++)
         {
-
             if (i >= 3)
             {
                 c1 = buffer[i-3];
@@ -41,11 +40,7 @@ int markerFinder(std::string pathToFile)
                 c3 = buffer[i-1];
                 c4 = buffer[i];
                 if (areCharDifferent(c1, c2, c3, c4) == true)
-                {
-                    std::cout<<"("<<c1<<", "<<c2<<", "<<c3<<", "<<c4<<")"<<std::endl;
                     return i+1;
-                }    
-
             }
         }
     }
