@@ -27,6 +27,12 @@ bool hasAnyDigits(const std::string& s)
     return std::any_of(s.begin(), s.end(), ::isdigit);
 }
 
+/**
+ * @brief Finds how many stacks there are
+ * 
+ * @param pathToFile 
+ * @return int the number of stacks
+ */
 int findStackCount(std::string pathToFile)
 {
     int stackCount = 0;
@@ -63,6 +69,13 @@ int findStackCount(std::string pathToFile)
     return stackCount;
 }
 
+/**
+ * @brief Creates the stacks with their elements in the starting position. 
+ * It uses two stacks in order to position the elements in the correct order
+ * 
+ * @param pathToFile 
+ * @return std::stack<char>* the array of stacks with the elements in the correct position
+ */
 std::stack<char> * startingStackGenerator(std::string pathToFile)
 {   
     int stackCount = findStackCount(pathToFile); 
@@ -146,6 +159,13 @@ std::stack<char> * mover(std::stack<char> * stacks, int moveCount, int stack1, i
     return stacks;
 }
 
+/**
+ * @brief find the top element of each stack
+ * 
+ * @param stacks 
+ * @param pathToFile 
+ * @return std::string a string containing the elements on top of each stack (each one is appended)
+ */
 std::string findTopCrates(std::stack<char> * stacks, std::string pathToFile)
 {
     std::string topCrates;
