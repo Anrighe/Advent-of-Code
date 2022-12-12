@@ -6,6 +6,33 @@ def removeNewline(newLineStr):
 def selectToken(str, pos):
     return removeNewline(str.split(" ")[pos-1])
 
+def changeDirectory(line, filesystem, fsCurrentPath):
+    match selectToken(line, 3):
+        case "..": #  cd .. 
+            if fsCurrentPath.rfind("/") == 0: #if in a directory adiacent to the root (e.g "/gqcclj")
+                fsCurrentPath = fsCurrentPath.replace(fsCurrentPath[1:], "")
+                #w.write("cd .. -> " + fsCurrentPath + "\n") #debug
+                #print(fsCurrentPath)
+            else: #if in directory not adiacent to the root (e.g. "/lmtpm/clffsvcw") 
+                fsCurrentPath = fsCurrentPath.replace(fsCurrentPath[fsCurrentPath.rfind("/"):], "")
+                #w.write("cd ..  -> " + fsCurrentPath + "\n") #debug
+                #print(fsCurrentPath)
+        case _: #  cd <dirname>
+            if fsCurrentPath == "" and selectToken(line, 3) == "/": #if I am moving to the root for the first time (based on the input.txt, it will only come here once )
+                fsCurrentPath = selectToken(line, 3) # fsCurrentPath = "/"
+                #w.write("cd " + selectToken(line, 3) + "-> " + fsCurrentPath + "\n") #debug
+                filesystem[fsCurrentPath] = []
+                #print(fsCurrentPath)
+
+            else: # cd <filename>
+                if fsCurrentPath == "/": # If I currently am in the root
+                    fsCurrentPath += selectToken(line, 3)
+                    #w.write("cd " + fsCurrentPath + "\n") #debug       
+                else:
+                    fsCurrentPath += "/" + selectToken(line, 3)
+                    #w.write("cd " + fsCurrentPath + "\n") #debug
+    return (fsCurrentPath, filesystem)
+
 def filesystemBuilder(pathToFile): 
     """Creates the filesystem based on the input.txt file
 
@@ -30,32 +57,7 @@ def filesystemBuilder(pathToFile):
             case "$": #  $
                 match selectToken(line, 2):
                     case "cd": #  $ cd
-                        match selectToken(line, 3):
-                            case "..": #  cd .. 
-                                if fsCurrentPath.rfind("/") == 0: #if in a directory adiacent to the root (e.g "/gqcclj")
-                                    fsCurrentPath = fsCurrentPath.replace(fsCurrentPath[1:], "")
-                                    w.write("cd .. -> " + fsCurrentPath + "\n") #debug
-                                    #print(fsCurrentPath)
-                                else: #if in directory not adiacent to the root (e.g. "/lmtpm/clffsvcw") 
-                                    fsCurrentPath = fsCurrentPath.replace(fsCurrentPath[fsCurrentPath.rfind("/"):], "")
-                                    w.write("cd ..  -> " + fsCurrentPath + "\n") #debug
-                                    #print(fsCurrentPath)
-                            case _: #  cd <dirname>
-                                if fsCurrentPath == "" and selectToken(line, 3) == "/": #if I am moving to the root for the first time (based on the input.txt, it will only come here once )
-                                    fsCurrentPath = selectToken(line, 3) # fsCurrentPath = "/"
-                                    w.write("cd " + selectToken(line, 3) + "-> " + fsCurrentPath + "\n") #debug
-                                    filesystem[fsCurrentPath] = []
-                                    #print(fsCurrentPath)
-
-                                else: # cd <filename>
-                                    if fsCurrentPath == "/": # If I currently am in the root
-                                        fsCurrentPath += selectToken(line, 3)
-                                        w.write("cd " + fsCurrentPath + "\n") #debug       
-                                    else:
-                                        fsCurrentPath += "/" + selectToken(line, 3)
-                                        w.write("cd " + fsCurrentPath + "\n") #debug
-                                
-
+                        (fsCurrentPath, filesystem) = changeDirectory(line, filesystem, fsCurrentPath)
                     case "ls": #  $ ls
                         pass # there is actually no need to do anything when an "$ ls" is encountered
 
