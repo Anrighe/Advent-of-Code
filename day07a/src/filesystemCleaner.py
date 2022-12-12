@@ -35,17 +35,17 @@ def filesystemBuilder(pathToFile):
                                 if fsCurrentPath.rfind("/") == 0: #if in a directory adiacent to the root (e.g "/gqcclj")
                                     fsCurrentPath = fsCurrentPath.replace(fsCurrentPath[1:], "")
                                     w.write("cd .. -> " + fsCurrentPath + "\n") #debug
-                                    print(fsCurrentPath)
+                                    #print(fsCurrentPath)
                                 else: #if in directory not adiacent to the root (e.g. "/lmtpm/clffsvcw") 
                                     fsCurrentPath = fsCurrentPath.replace(fsCurrentPath[fsCurrentPath.rfind("/"):], "")
                                     w.write("cd ..  -> " + fsCurrentPath + "\n") #debug
-                                    print(fsCurrentPath)
+                                    #print(fsCurrentPath)
                             case _: #  cd <dirname>
-                                if fsCurrentPath == "" and selectToken(line, 3) == "/": #if I am moving to the root for the first time
+                                if fsCurrentPath == "" and selectToken(line, 3) == "/": #if I am moving to the root for the first time (based on the input.txt, it will only come here once )
                                     fsCurrentPath = selectToken(line, 3) # fsCurrentPath = "/"
                                     w.write("cd " + selectToken(line, 3) + "-> " + fsCurrentPath + "\n") #debug
                                     filesystem[fsCurrentPath] = []
-                                    print(fsCurrentPath)
+                                    #print(fsCurrentPath)
 
                                 else: # cd <filename>
                                     if fsCurrentPath == "/": # If I currently am in the root
@@ -57,34 +57,34 @@ def filesystemBuilder(pathToFile):
                                 
 
                     case "ls": #  $ ls
-                        pass
+                        pass # there is actually no need to do anything when an "$ ls" is encountered
 
             case "dir": # dir
-                pass
-                """if fsCurrentPath == "/" and fsCurrentPath + selectToken(line, 2) not in filesystem[fsCurrentPath]: # If I currently am in the root and the directory isn't listed in the root value
-                    
-                    filesystem[fsCurrentPath].append(fsCurrentPath + selectToken(line, 2))
-                    #print("Appending to", fsCurrentPath, fsCurrentPath + selectToken(line, 2))
-            else:
-                if fsCurrentPath + "/" + selectToken(line, 2) in filesystem and fsCurrentPath + "/" + selectToken(line, 2) not in filesystem[fsCurrentPath]:
-                    filesystem[fsCurrentPath + "/" + selectToken(line, 2)].append(fsCurrentPath + "/" + selectToken(line, 2))
-                    #print("Appending to", fsCurrentPath, fsCurrentPath + "/" + selectToken(line, 2))
+                if fsCurrentPath == "/": # If I am in the root
+                    if fsCurrentPath + selectToken(line, 2) not in filesystem[fsCurrentPath]: # If the directory isn't listed in the root value: append that dir
+                        filesystem[fsCurrentPath].append(fsCurrentPath + selectToken(line, 2))
                 else:
-                    filesystem[fsCurrentPath + "/" + selectToken(line, 2)] = []
-                    filesystem[fsCurrentPath + "/" + selectToken(line, 2)].append(fsCurrentPath + "/" + selectToken(line, 2))
-                    #print("Appending to", fsCurrentPath, fsCurrentPath + "/" + selectToken(line, 2))"""
+                    #print("checking if ", fsCurrentPath, " already is in the fs")
+                    if fsCurrentPath in filesystem and fsCurrentPath + "/" + selectToken(line, 2) not in filesystem[fsCurrentPath]:
+                        filesystem[fsCurrentPath].append(fsCurrentPath + "/" + selectToken(line, 2))
+                        #print("Appending to", fsCurrentPath, fsCurrentPath + "/" + selectToken(line, 2))
+                    else:
+                        filesystem[fsCurrentPath] = []
+                        filesystem[fsCurrentPath].append(fsCurrentPath + "/" + selectToken(line, 2))
+                        #print("Appending to", fsCurrentPath, fsCurrentPath + "/" + selectToken(line, 2))
 
                     
                 
-
+            #for files i was thinking of inserting them in the filesystem dictionary in a tuple ("filename", size)
             case _: #  <filesize> <filename> 
                 pass
+        
         #print(fsCurrentPath)
 
-        #for key,value in filesystem.items():
-            #print(key)
+    for key, value in filesystem.items():
+        print(key ,value )
         
-        #print(filesystem["/gqcclj"])
+    #print(filesystem["/lmtpm"])
 
 
 
