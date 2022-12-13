@@ -1,0 +1,347 @@
+cd /-> /
+cd /gqcclj
+cd .. -> 
+cd /lmtpm
+cd /lmtpm/clffsvcw
+cd ..  -> /lmtpm
+cd /lmtpm/dcqnblb
+cd /lmtpm/dcqnblb/dcqnblb
+cd /lmtpm/dcqnblb/dcqnblb/zpswzfvg
+cd ..  -> /lmtpm/dcqnblb/dcqnblb
+cd ..  -> /lmtpm/dcqnblb
+cd /lmtpm/dcqnblb/gfn
+cd ..  -> /lmtpm/dcqnblb
+cd /lmtpm/dcqnblb/lpswsp
+cd ..  -> /lmtpm/dcqnblb
+cd /lmtpm/dcqnblb/lvt
+cd /lmtpm/dcqnblb/lvt/hjllwsvl
+cd /lmtpm/dcqnblb/lvt/hjllwsvl/wqnc
+cd ..  -> /lmtpm/dcqnblb/lvt/hjllwsvl
+cd ..  -> /lmtpm/dcqnblb/lvt
+cd /lmtpm/dcqnblb/lvt/ptbt
+cd ..  -> /lmtpm/dcqnblb/lvt
+cd ..  -> /lmtpm/dcqnblb
+cd /lmtpm/dcqnblb/zprprf
+cd /lmtpm/dcqnblb/zprprf/ldzslndn
+cd /lmtpm/dcqnblb/zprprf/ldzslndn/bwqqsbhg
+cd ..  -> /lmtpm/dcqnblb/zprprf/ldzslndn
+cd ..  -> /lmtpm/dcqnblb/zprprf
+cd /lmtpm/dcqnblb/zprprf/qftt
+cd ..  -> /lmtpm/dcqnblb/zprprf
+cd ..  -> /lmtpm/dcqnblb
+cd ..  -> /lmtpm
+cd /lmtpm/dtpwln
+cd /lmtpm/dtpwln/dpwg
+cd /lmtpm/dtpwln/dpwg/pbmf
+cd ..  -> /lmtpm/dtpwln/dpwg
+cd /lmtpm/dtpwln/dpwg/rmpvj
+cd ..  -> /lmtpm/dtpwln/dpwg
+cd /lmtpm/dtpwln/dpwg/scgc
+cd ..  -> /lmtpm/dtpwln/dpwg
+cd ..  -> /lmtpm/dtpwln
+cd /lmtpm/dtpwln/ldzslndn
+cd ..  -> /lmtpm/dtpwln
+cd /lmtpm/dtpwln/znnsqqh
+cd ..  -> /lmtpm/dtpwln
+cd ..  -> /lmtpm
+cd /lmtpm/fvt
+cd /lmtpm/fvt/dcqnblb
+cd /lmtpm/fvt/dcqnblb/dcqnblb
+cd ..  -> /lmtpm/fvt/dcqnblb
+cd /lmtpm/fvt/dcqnblb/lbnflwsh
+cd ..  -> /lmtpm/fvt/dcqnblb
+cd ..  -> /lmtpm/fvt
+cd /lmtpm/fvt/gnc
+cd /lmtpm/fvt/gnc/jhjbjsp
+cd ..  -> /lmtpm/fvt/gnc
+cd /lmtpm/fvt/gnc/jjppr
+cd ..  -> /lmtpm/fvt/gnc
+cd ..  -> /lmtpm/fvt
+cd ..  -> /lmtpm
+cd /lmtpm/hrcrw
+cd ..  -> /lmtpm
+cd /lmtpm/jdqzmqn
+cd /lmtpm/jdqzmqn/ldzslndn
+cd ..  -> /lmtpm/jdqzmqn
+cd ..  -> /lmtpm
+cd /lmtpm/qcq
+cd ..  -> /lmtpm
+cd /lmtpm/rsn
+cd ..  -> /lmtpm
+cd /lmtpm/zprprf
+cd /lmtpm/zprprf/chbmq
+cd /lmtpm/zprprf/chbmq/cnjvw
+cd /lmtpm/zprprf/chbmq/cnjvw/bpbs
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb/mjhtmbj
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb/mjhtmbj/dqp
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb/mjhtmbj
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb/mjhtmbj/hbthpcmb
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb/mjhtmbj
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb/tfnhp
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb/zprprf
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/bjdbcjbb
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb/mmrbj
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb/zprprf
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb/zprprf/rvgqvm
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb/zprprf/rvgqvm/ntbv
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb/zprprf/rvgqvm
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb/zprprf/rvgqvm/qbvdh
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb/zprprf/rvgqvm
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb/zprprf
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb/zprprf/zcdrj
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb/zprprf
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dcqnblb
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dqp
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dqp/jfzm
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dqp
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dqp/zprprf
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/dqp
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/lgdwtt
+cd /lmtpm/zprprf/chbmq/cnjvw/djmjhn/lgdwtt/qcq
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn/lgdwtt
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/djmjhn
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw
+cd /lmtpm/zprprf/chbmq/cnjvw/qcq
+cd /lmtpm/zprprf/chbmq/cnjvw/qcq/dpd
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/qcq
+cd /lmtpm/zprprf/chbmq/cnjvw/qcq/mwg
+cd /lmtpm/zprprf/chbmq/cnjvw/qcq/mwg/sjjsdn
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/qcq/mwg
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw/qcq
+cd ..  -> /lmtpm/zprprf/chbmq/cnjvw
+cd ..  -> /lmtpm/zprprf/chbmq
+cd /lmtpm/zprprf/chbmq/dqp
+cd /lmtpm/zprprf/chbmq/dqp/hcrwclpg
+cd /lmtpm/zprprf/chbmq/dqp/hcrwclpg/cmqntjj
+cd ..  -> /lmtpm/zprprf/chbmq/dqp/hcrwclpg
+cd ..  -> /lmtpm/zprprf/chbmq/dqp
+cd /lmtpm/zprprf/chbmq/dqp/zphd
+cd ..  -> /lmtpm/zprprf/chbmq/dqp
+cd ..  -> /lmtpm/zprprf/chbmq
+cd /lmtpm/zprprf/chbmq/msztjvcb
+cd /lmtpm/zprprf/chbmq/msztjvcb/dcqnblb
+cd ..  -> /lmtpm/zprprf/chbmq/msztjvcb
+cd /lmtpm/zprprf/chbmq/msztjvcb/fmn
+cd ..  -> /lmtpm/zprprf/chbmq/msztjvcb
+cd ..  -> /lmtpm/zprprf/chbmq
+cd /lmtpm/zprprf/chbmq/sjzrcg
+cd /lmtpm/zprprf/chbmq/sjzrcg/vhzh
+cd ..  -> /lmtpm/zprprf/chbmq/sjzrcg
+cd ..  -> /lmtpm/zprprf/chbmq
+cd /lmtpm/zprprf/chbmq/zprprf
+cd /lmtpm/zprprf/chbmq/zprprf/ldzslndn
+cd /lmtpm/zprprf/chbmq/zprprf/ldzslndn/npq
+cd ..  -> /lmtpm/zprprf/chbmq/zprprf/ldzslndn
+cd /lmtpm/zprprf/chbmq/zprprf/ldzslndn/swjrzzrm
+cd ..  -> /lmtpm/zprprf/chbmq/zprprf/ldzslndn
+cd ..  -> /lmtpm/zprprf/chbmq/zprprf
+cd /lmtpm/zprprf/chbmq/zprprf/nwl
+cd ..  -> /lmtpm/zprprf/chbmq/zprprf
+cd /lmtpm/zprprf/chbmq/zprprf/qll
+cd ..  -> /lmtpm/zprprf/chbmq/zprprf
+cd ..  -> /lmtpm/zprprf/chbmq
+cd ..  -> /lmtpm/zprprf
+cd /lmtpm/zprprf/dcqnblb
+cd /lmtpm/zprprf/dcqnblb/lvpb
+cd /lmtpm/zprprf/dcqnblb/lvpb/qcq
+cd /lmtpm/zprprf/dcqnblb/lvpb/qcq/mmpgd
+cd ..  -> /lmtpm/zprprf/dcqnblb/lvpb/qcq
+cd /lmtpm/zprprf/dcqnblb/lvpb/qcq/tdsz
+cd ..  -> /lmtpm/zprprf/dcqnblb/lvpb/qcq
+cd /lmtpm/zprprf/dcqnblb/lvpb/qcq/tmfvsjwc
+cd ..  -> /lmtpm/zprprf/dcqnblb/lvpb/qcq
+cd ..  -> /lmtpm/zprprf/dcqnblb/lvpb
+cd /lmtpm/zprprf/dcqnblb/lvpb/tmr
+cd ..  -> /lmtpm/zprprf/dcqnblb/lvpb
+cd ..  -> /lmtpm/zprprf/dcqnblb
+cd ..  -> /lmtpm/zprprf
+cd /lmtpm/zprprf/dqp
+cd /lmtpm/zprprf/dqp/lbgmcbv
+cd ..  -> /lmtpm/zprprf/dqp
+cd /lmtpm/zprprf/dqp/nbg
+cd /lmtpm/zprprf/dqp/nbg/mfsgjp
+cd ..  -> /lmtpm/zprprf/dqp/nbg
+cd ..  -> /lmtpm/zprprf/dqp
+cd ..  -> /lmtpm/zprprf
+cd /lmtpm/zprprf/nfspb
+cd ..  -> /lmtpm/zprprf
+cd ..  -> /lmtpm
+cd .. -> 
+cd /nhqwt
+cd /nhqwt/dhrtvctp
+cd ..  -> /nhqwt
+cd /nhqwt/gzg
+cd /nhqwt/gzg/wqdbtqm
+cd ..  -> /nhqwt/gzg
+cd ..  -> /nhqwt
+cd /nhqwt/mcnjwwfr
+cd /nhqwt/mcnjwwfr/dctl
+cd /nhqwt/mcnjwwfr/dctl/bbhch
+cd /nhqwt/mcnjwwfr/dctl/bbhch/dpqtp
+cd ..  -> /nhqwt/mcnjwwfr/dctl/bbhch
+cd /nhqwt/mcnjwwfr/dctl/bbhch/jvdrcw
+cd ..  -> /nhqwt/mcnjwwfr/dctl/bbhch
+cd ..  -> /nhqwt/mcnjwwfr/dctl
+cd /nhqwt/mcnjwwfr/dctl/wnlgfpvf
+cd /nhqwt/mcnjwwfr/dctl/wnlgfpvf/dqp
+cd /nhqwt/mcnjwwfr/dctl/wnlgfpvf/dqp/dqp
+cd ..  -> /nhqwt/mcnjwwfr/dctl/wnlgfpvf/dqp
+cd ..  -> /nhqwt/mcnjwwfr/dctl/wnlgfpvf
+cd ..  -> /nhqwt/mcnjwwfr/dctl
+cd ..  -> /nhqwt/mcnjwwfr
+cd /nhqwt/mcnjwwfr/dqp
+cd /nhqwt/mcnjwwfr/dqp/dqp
+cd ..  -> /nhqwt/mcnjwwfr/dqp
+cd /nhqwt/mcnjwwfr/dqp/ldzslndn
+cd /nhqwt/mcnjwwfr/dqp/ldzslndn/dqp
+cd ..  -> /nhqwt/mcnjwwfr/dqp/ldzslndn
+cd /nhqwt/mcnjwwfr/dqp/ldzslndn/fptnzlv
+cd ..  -> /nhqwt/mcnjwwfr/dqp/ldzslndn
+cd /nhqwt/mcnjwwfr/dqp/ldzslndn/gmbnpm
+cd /nhqwt/mcnjwwfr/dqp/ldzslndn/gmbnpm/ldzslndn
+cd ..  -> /nhqwt/mcnjwwfr/dqp/ldzslndn/gmbnpm
+cd /nhqwt/mcnjwwfr/dqp/ldzslndn/gmbnpm/qcq
+cd /nhqwt/mcnjwwfr/dqp/ldzslndn/gmbnpm/qcq/tdp
+cd ..  -> /nhqwt/mcnjwwfr/dqp/ldzslndn/gmbnpm/qcq
+cd ..  -> /nhqwt/mcnjwwfr/dqp/ldzslndn/gmbnpm
+cd ..  -> /nhqwt/mcnjwwfr/dqp/ldzslndn
+cd /nhqwt/mcnjwwfr/dqp/ldzslndn/vhvblt
+cd /nhqwt/mcnjwwfr/dqp/ldzslndn/vhvblt/lzr
+cd ..  -> /nhqwt/mcnjwwfr/dqp/ldzslndn/vhvblt
+cd ..  -> /nhqwt/mcnjwwfr/dqp/ldzslndn
+cd ..  -> /nhqwt/mcnjwwfr/dqp
+cd /nhqwt/mcnjwwfr/dqp/rpchqq
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/bcs
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/gnmhwj
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/gnmhwj/gvs
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/gnmhwj
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/gnmhwj/hzrnb
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/gnmhwj
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/gnmhwj/qcq
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/gnmhwj
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/gnmhwj/sqhl
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/gnmhwj
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/bcs
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/ldzslndn
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/bcs
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/bcs/sqqjfps
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/bcs
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/dcqnblb
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/dcqnblb/dqp
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/dcqnblb/dqp/qvfjz
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/dcqnblb/dqp
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/dcqnblb
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/fvjzn
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/fvjzn/dqp
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/fvjzn
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/fvjzn/ldzslndn
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/fvjzn
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/fvjzn/msp
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/fvjzn
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/bbwqmbg
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/bbwqmbg/pvlw
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/bbwqmbg
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/bbwqmbg/qcq
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/bbwqmbg/qcq/wgdzws
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/bbwqmbg/qcq
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/bbwqmbg
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/dqp
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/dqp/hwqjlwcb
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/dqp
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn/njswzh
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn/njswzh/rnmfd
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn/njswzh
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn/zvmjvcdm
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn/zvmjvcdm/jgczt
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn/zvmjvcdm/jgczt/qcq
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn/zvmjvcdm/jgczt
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn/zvmjvcdm
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/ldzslndn
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/bmcng
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dcqnblb
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dcqnblb/dqp
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dcqnblb
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dqp
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dqp/dcqnblb
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dqp/dcqnblb/zprprf
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dqp/dcqnblb/zprprf/bqnpsl
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dqp/dcqnblb/zprprf
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dqp/dcqnblb/zprprf/dszrvpzc
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dqp/dcqnblb/zprprf
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dqp/dcqnblb
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/dqp
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/ldzslndn
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/ldzslndn/bgnhd
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/ldzslndn
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/ldzslndn/pgvcdzwz
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/ldzslndn
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/ldzslndn/qgzhm
+cd /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/ldzslndn/qgzhm/vnschqwr
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/ldzslndn/qgzhm
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp/ldzslndn
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln/vnjfrhp
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv/tln
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq/lrphzrv
+cd ..  -> /nhqwt/mcnjwwfr/dqp/rpchqq
+cd ..  -> /nhqwt/mcnjwwfr/dqp
+cd ..  -> /nhqwt/mcnjwwfr
+cd /nhqwt/mcnjwwfr/flcrmhlj
+cd /nhqwt/mcnjwwfr/flcrmhlj/lffj
+cd /nhqwt/mcnjwwfr/flcrmhlj/lffj/pjlwb
+cd ..  -> /nhqwt/mcnjwwfr/flcrmhlj/lffj
+cd ..  -> /nhqwt/mcnjwwfr/flcrmhlj
+cd ..  -> /nhqwt/mcnjwwfr
+cd /nhqwt/mcnjwwfr/gtt
+cd ..  -> /nhqwt/mcnjwwfr
+cd /nhqwt/mcnjwwfr/hlbnhchz
+cd ..  -> /nhqwt/mcnjwwfr
+cd /nhqwt/mcnjwwfr/twntr
+cd ..  -> /nhqwt/mcnjwwfr
+cd ..  -> /nhqwt
+cd .. -> 
+cd /qcq
+cd /qcq/jjqsmfhr
+cd /qcq/jjqsmfhr/btmm
+cd /qcq/jjqsmfhr/btmm/fzdd
+cd /qcq/jjqsmfhr/btmm/fzdd/vnwpn
+cd /qcq/jjqsmfhr/btmm/fzdd/vnwpn/bzlgsl
+cd ..  -> /qcq/jjqsmfhr/btmm/fzdd/vnwpn
+cd /qcq/jjqsmfhr/btmm/fzdd/vnwpn/ztvzrrbv
+cd ..  -> /qcq/jjqsmfhr/btmm/fzdd/vnwpn
+cd ..  -> /qcq/jjqsmfhr/btmm/fzdd
+cd ..  -> /qcq/jjqsmfhr/btmm
+cd ..  -> /qcq/jjqsmfhr
+cd /qcq/jjqsmfhr/fqndtlgq
+cd ..  -> /qcq/jjqsmfhr
+cd ..  -> /qcq
+cd /qcq/rjbqtrq
+cd ..  -> /qcq
+cd /qcq/vwmpnbts
+cd ..  -> /qcq
+cd .. -> 
+cd /vwqwlqrt
+cd /vwqwlqrt/psrs
