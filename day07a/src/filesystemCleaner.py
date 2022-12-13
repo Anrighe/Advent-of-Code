@@ -109,6 +109,24 @@ def filesystemBuilder(pathToFile):
     return filesystem
 
 
+def filesystemSizeCalculator(filesystem):
+    filesystemSize = {}
+
+    for key, value in filesystem.items():
+        filesystemSize[key] = -1
+
+    #for key, value in filesystemSize.items():
+        #print(key,value)
+
+    #while filesystemSize["/"] == -1: # while the root size has not been calculated (-1)
+        for key, value in filesystem.items():
+            print(value)
+            if type(value) is tuple:
+                print("TUPLE")              
+        #pass
+
+
+    return filesystemSize
 
 
 def filesystemCleaner():
@@ -123,4 +141,5 @@ def filesystemCleaner():
 
 if __name__ == "__main__":
     filesystem = filesystemBuilder(sys.argv[1])
+    filesystemSize = filesystemSizeCalculator(filesystem)
     filesystemCleaner()
