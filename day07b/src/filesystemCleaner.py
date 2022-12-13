@@ -170,14 +170,12 @@ def freeSpaceforUpdate(unusedSpace, updateSpaceNeeded, filesystemSize):
     minFoundAssigned = False
 
     for key, value in filesystemSize.items():
-        print("CHECKING IF", value)
         if value >= needToFree:
             if minFoundAssigned == False:
                 minFound = value
                 minFoundAssigned = True
             elif value < minFound:
                 minFound = value
-            print(minFound)
     return minFound
 
 
@@ -192,13 +190,4 @@ if __name__ == "__main__":
     print("Total unused space:", unusedSpace)
     print("The amount of cleanable space for threshold =", threshold, "is: ", cleanableSpace(filesystemSize, threshold))
     print("Smallest size of the directory that can be deleted to install the update: ", smallestDirDelUpdate)
-
-    for key, value in filesystem.items():
-        print(key, value)
-
-    print("------------------------")    
-
-    for key, value in filesystemSize.items():
-        print(key, value)
-        
 
