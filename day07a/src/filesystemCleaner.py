@@ -6,6 +6,12 @@ def removeNewline(newLineStr):
 def selectToken(str, pos):
     return removeNewline(str.split(" ")[pos-1])
 
+def onlyContainsTuple(list):
+    for element in list:
+        if type(element) is not tuple:
+            return False
+    return True
+
 def changeDirectory(line, filesystem, fsCurrentPath):
     #w = open("cd.txt", "a")
     match selectToken(line, 3):
@@ -109,37 +115,93 @@ def filesystemBuilder(pathToFile):
     return filesystem
 
 
-def filesystemSizeCalculator(filesystem):
-    filesystemSize = {}
-
-    for key, value in filesystem.items():
-        filesystemSize[key] = -1
-
-    #for key, value in filesystemSize.items():
-        #print(key,value)
-
-    #while filesystemSize["/"] == -1: # while the root size has not been calculated (-1)
-        for key, value in filesystem.items():
-            print(value)
-            if type(value) is tuple:
-                print("TUPLE")              
-        #pass
-
-
-    return filesystemSize
-
-
-def filesystemCleaner():
+def calculateSizeTuple(list):
+    totalSize = 0
+    for (t1,t2) in list:
+        totalSize += int(t2)
+    return totalSize
+        
+def calculateSizeGeneric(list, filesystem, filesystemSize):
     pass
 
 
 
+def filesystemSizeCalculator(filesystem):
+    filesystemSize = {}
+
+    for key,value in filesystem.items(): # setting all directory size to -1 to indicate their size is yet to be calculated
+        filesystemSize[key] = -1
 
 
+    #Calculates the size of the directories that only contain files and not other directory
+    for key, value in filesystem.items():
+        if onlyContainsTuple(value) == True:
+            filesystemSize[key] = calculateSizeTuple(value)
 
+    uncalculated = False
+    totalSize = 0
+
+    
+    while filesystemSize["/"] == -1:
+        for key in filesystem:
+            #print("KEY:",key)
+            if filesystemSize[key] == -1: #if the size of the directory has yet not been calculated
+                for value in filesystem[key]: #value is the list of directories and (filename, filesize)
+                    #print("VALUE: ", value)
+                    #print("VALUE TYPE: ", type(value))
+                    #if isinstance(value, str) == True:
+                    #    print(value, True)
+                    #    print(value, "STR")
+                    #if isinstance(value, tuple) == True:
+                    #    print(value, True)
+                    #    print(value, "TUP")
+
+                    ##NON VA NEGLI IF SOTTOSTANTI
+                    if isinstance(value, tuple):
+                        #print("TUPLE",value, "FOUND")
+                        totalSize += int(value[1])
+                    elif isinstance(value, str): # if a directory has been found
+                        #print("DIR",value, "FOUND")
+                        if filesystemSize[value] != -1: # if the directory size found inside the [key] addr has already been calculated
+                            totalSize += filesystemSize[value]
+                            print(totalSize)
+                        else: # if the directory size found inside the [key] addr has NOT been calculated
+                            uncalculated = True
+
+                if uncalculated == True:
+                    uncalculated = False
+                    totalSize = 0
+                else:
+                    filesystemSize[key] = totalSize
+                    totalSize = 0
+    return filesystemSize
+
+
+def cleanableSpace(filesystemSize, threshold):
+    """Calculates the cleanable space in the filesystem by adding all directories <= to the threshold
+
+    Parameters
+    ---
+    filesystemSize : dict{directoryPath:directorySize}
+        path to the input.txt file
+
+    threshold : int
+
+    Returns
+    -------
+    cleanableSpaceSize : int
+        The amount of space that can be cleaned
+    """   
+    cleanableSpaceSize = 0
+    for key,value in filesystemSize.items():
+        if value <= threshold:
+            cleanableSpaceSize += value
+
+    return cleanableSpaceSize
 
 
 if __name__ == "__main__":
+    threshold = 100000
     filesystem = filesystemBuilder(sys.argv[1])
     filesystemSize = filesystemSizeCalculator(filesystem)
-    filesystemCleaner()
+    print("The amount of cleanable space for threshold =", threshold, "is: ", cleanableSpace(filesystemSize, threshold))
