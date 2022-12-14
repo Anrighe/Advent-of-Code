@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 
 
 int findGridHeight(std::string pathToFile)
@@ -109,6 +110,49 @@ bool isTreeVisibile()
 }
 
 /**
+ * @brief Populates the grid with the input on the input.txt file
+ * 
+ * @param grid 
+ * @param gridWidth 
+ * @param gridHeight 
+ * @param pathToFile 
+ * @return int** the updated grid of trees 
+ */
+int ** gridPopulator(int ** grid, int gridWidth, int gridHeight, std::string pathToFile)
+{
+    std::ifstream fPopulator; 
+    std::string buffer = "";
+    std::string currentChar = ""; 
+    int currentRow = 0;
+    try
+    {
+        fPopulator.open(pathToFile);
+        
+        while (fPopulator.is_open() == true && fPopulator.eof() == false)
+        {
+            if (fPopulator.eof() == false)
+            {
+                fPopulator>>buffer;
+                for (int i = 0; i < gridWidth; i++)
+                {
+                    currentChar = buffer[i];
+                    grid[currentRow][i] = stoi(currentChar);
+                }
+                currentRow++;
+            }
+        } 
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr<<e.what();
+        exit(-1);
+    }
+    fPopulator.close();
+
+    return grid;
+}
+
+/**
  * @brief counts the number of visible trees
  * 
  * @param pathToFile 
@@ -116,39 +160,20 @@ bool isTreeVisibile()
  */
 int visibleTreeCalculator(std::string pathToFile)
 {
-    std::ifstream f; 
-    std::string buffer = "";
+    //std::ifstream f; 
+    //std::string buffer = "";
     int visibleTreeCounter = 0;
     int gridWidth = findGridWidth(pathToFile);
     int gridHeight = findGridHeight(pathToFile);
     
     int ** grid = generateGrid(gridWidth, gridHeight);
 
-    grid[2][1] = 5; //DEBUG IT SEEMS TO WORK
+    //grid[2][1] = 5; //DEBUG IT SEEMS TO WORK
+
+    grid = gridPopulator(grid, gridWidth, gridHeight, pathToFile);
     printGrid(grid, gridWidth, gridHeight);
 
 
-    /*
-    try
-    {
-        f.open(pathToFile);
-        
-        while (f.is_open() == true && f.eof() == false)
-        {
-            if (f.eof() == false)
-            {
-                f>>buffer;
-                std::cout<<buffer<<" "<<buffer.length()<<std::endl;
-            }
-        } 
-
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr<<e.what();
-        exit(-1);
-    }
-    f.close();*/
 
     return visibleTreeCounter;
 }
