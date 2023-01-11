@@ -37,7 +37,7 @@ def printGridNum(grid):
 
 
 def shortestPath(filename):
-    """"""
+    """Populates a graph based on the terrain input and finds the shortest path from S to E"""
     heightGridChar = []
     heightGridNum = []
     rowCount = 0
@@ -80,8 +80,6 @@ def shortestPath(filename):
                     heightGridNum[i].append(ord(element) - ord('a'))
                     j += 1
 
-        printGridNum(heightGridNum)
-
         graph = Graph()
 
         row = 0
@@ -93,6 +91,7 @@ def shortestPath(filename):
             row +=1
             col = 0
 
+        # Not the greatest way to do this but it works
         row = 0
         col = 0
         for line in heightGridNum:
