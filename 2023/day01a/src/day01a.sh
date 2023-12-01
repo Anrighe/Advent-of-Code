@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 input="input.txt"
 declare -i sum=0
