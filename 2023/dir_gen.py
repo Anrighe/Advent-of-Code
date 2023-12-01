@@ -22,6 +22,10 @@ if __name__ == '__main__':
     
     if not os.path.exists(dir_name):
         os.mkdir(dir_name)
+        
+        with open(os.path.join(current_path, dir_name, 'input.txt'), 'w') as f:
+            pass
+
         os.chdir(os.path.join(current_path, dir_name))
         os.mkdir('src')
     else:
