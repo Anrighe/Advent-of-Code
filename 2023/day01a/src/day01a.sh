@@ -7,8 +7,6 @@ re='^[0-9]$'
 
 while IFS= read -r line || [ -n "$line" ]; do
 
-    found_first=false
-    found_second=false
     value=''
     for (( i=0; i<${#line}; i++)); do
 
