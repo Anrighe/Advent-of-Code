@@ -166,9 +166,10 @@ public class Solution
 
                         number = Integer.parseInt(numberString);
 
+                        //TODO: Number 387 is not being considered 509115
                         if (isNumberPartOfSchematic(i, numberStartIndex, numberEndIndex, dataMatrix, rowCount, rowLength))
                         {
-                            System.out.println("Schematic number found: " + numberString);
+                            System.out.println(numberString); 
                             res += number;
                         }
                         
@@ -177,7 +178,7 @@ public class Solution
 
                         
                 }
-                System.out.println("-------------");
+                //System.out.println("-------------"); 
 
             }
 
