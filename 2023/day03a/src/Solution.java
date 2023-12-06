@@ -4,6 +4,18 @@ import java.util.Scanner;
 
 public class Solution
 {
+    /**
+     * Checks if a number in the data matrix is part of the schematic.
+     * To be part of a schematic a number must be adjacent to another symbol different from the dot "."
+     * 
+     * @param current_row The current row index
+     * @param numberStartIndex The starting index of the number
+     * @param numberEndIndex The ending index of the number
+     * @param dataMatrix The 2D character array representing the data matrix
+     * @param rowCount The total number of rows in the data matrix
+     * @param rowLength The length of each row in the data matrix
+     * @return true if the number is part of the schematic, false otherwise
+     */
     public static boolean isNumberPartOfSchematic(int current_row, int numberStartIndex, int numberEndIndex, char[][] dataMatrix, int rowCount, int rowLength)
     {
         if (current_row > 0) // Top
@@ -12,7 +24,6 @@ public class Solution
             {
                 if (dataMatrix[current_row - 1][i] != '.')
                     return true;
-
             }
         }
 
@@ -22,7 +33,6 @@ public class Solution
             {
                 if (dataMatrix[current_row + 1][i] != '.')
                     return true;
-
             }
         }
 
@@ -30,7 +40,7 @@ public class Solution
         {
             if (dataMatrix[current_row][numberStartIndex - 1] != '.') // Left
                 return true;
-            
+        
             if (current_row > 0 && dataMatrix[current_row - 1][numberStartIndex - 1] != '.') // Bottom-right
                 return true;
 
@@ -66,16 +76,15 @@ public class Solution
                 rows++;
                 myReader.nextLine();
             }
-            
-            System.out.println("SSSSSSSSS");
 
             myReader.close();
         }
         catch(FileNotFoundException e)
         {
-            System.out.println("Was not able to locate the input file.");
+            System.err.println("Was not able to locate the input file.");
             e.printStackTrace();
         }
+
         return rows;
     }
 
@@ -97,7 +106,7 @@ public class Solution
         }
         catch(FileNotFoundException e)
         {
-            System.out.println("Was not able to locate the input file.");
+            System.err.println("Was not able to locate the input file.");
             e.printStackTrace();
         }
         return length;
@@ -111,10 +120,9 @@ public class Solution
         try
         {
             int rowCount = getFileRowCount();
-            
             int rowLength = getFileRowLength(); // implying all rows have the same length
             
-            File myObj = new File("input.txt");
+            File myObj = new File("insut.txt");
             Scanner myReader = new Scanner(myObj);
             
             char[][] dataMatrix = new char[rowCount][rowLength];
@@ -123,13 +131,10 @@ public class Solution
             {
                 String data = myReader.nextLine();
                 
-
                 for(int i = 0; i < data.length(); i++)
-                {
                     dataMatrix[current_row][i] = data.charAt(i);
-                }
-                current_row++;
 
+                current_row++;
             }
 
             myReader.close();
@@ -143,9 +148,6 @@ public class Solution
                 foundNumber = false;
                 for (int j = 0; j < dataMatrix[i].length; j++)
                 {
-                    //System.out.print(dataMatrix[i][j]);
-
-
                     if (!foundNumber && Character.isDigit(dataMatrix[i][j]))
                     {
                         foundNumber = true;
@@ -155,38 +157,40 @@ public class Solution
                     else if (foundNumber && Character.isDigit(dataMatrix[i][j]))
                     {
                         numberEndIndex = j;
+
+                        if (j == dataMatrix[i].length - 1)
+                        {
+                            foundNumber = false;
+                            String numberString = "";
+                            
+                            for (int k = numberStartIndex; k <= numberEndIndex; k++)
+                                numberString += dataMatrix[i][k];
+                            
+                            number = Integer.parseInt(numberString);
+                            if (isNumberPartOfSchematic(i, numberStartIndex, numberEndIndex, dataMatrix, rowCount, rowLength))
+                                res += number;
+                        }
                     }
                     else if (foundNumber && !Character.isDigit(dataMatrix[i][j]))
                     {
                         foundNumber = false;
                         String numberString = "";
-
+                        
                         for (int k = numberStartIndex; k <= numberEndIndex; k++)
-                            numberString += dataMatrix[i][k];
-
+                        numberString += dataMatrix[i][k];
+                        
                         number = Integer.parseInt(numberString);
-
-                        //TODO: Number 387 is not being considered 509115
+                        
                         if (isNumberPartOfSchematic(i, numberStartIndex, numberEndIndex, dataMatrix, rowCount, rowLength))
-                        {
-                            System.out.println(numberString); 
                             res += number;
-                        }
-                        
-                        //System.out.println("Number found: " + numberString);
-                    }
-
-                        
+                    }    
                 }
-                //System.out.println("-------------"); 
-
             }
-
             System.out.println("Result: " + res);
         }
         catch (FileNotFoundException e)
         {
-            System.out.println("Was not able to locate the input file.");
+            System.err.println("Was not able to locate the input file.");
             e.printStackTrace();
         }
     }
