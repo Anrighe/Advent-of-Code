@@ -122,7 +122,7 @@ public class Solution
             int rowCount = getFileRowCount();
             int rowLength = getFileRowLength(); // implying all rows have the same length
             
-            File myObj = new File("insut.txt");
+            File myObj = new File("input.txt");
             Scanner myReader = new Scanner(myObj);
             
             char[][] dataMatrix = new char[rowCount][rowLength];
