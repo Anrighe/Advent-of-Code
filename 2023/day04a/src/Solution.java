@@ -46,9 +46,7 @@ public class Solution
                 for (String number : myNumbersString)
                 {
                     if ((!number.equals(" ")) && (!number.equals("")))
-                    {
-                        myNumbers.add(Integer.parseInt(number.replace(" ", ""))); 
-                    }
+                        myNumbers.add(Integer.parseInt(number.replace(" ", "")));
                 }
 
                 winningNumbers.retainAll(myNumbers);
@@ -64,7 +62,6 @@ public class Solution
                 winningNumbers.clear();
                 myNumbers.clear();
             }
-
             myReader.close();
 
             System.out.println("Result: " + res);
