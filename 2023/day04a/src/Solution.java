@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class Solution
 {
     
-    
     /**
      * Reads the input file and for each line (game), it calculates the number of points.
      * For the first winning number it gives 1 point, for the second 2 points, for the third 4 points, etc.
