@@ -8,9 +8,8 @@ import java.util.Map;
 
 public class Solution
 {
-
     /**
-     * Returns the total number of cards in the input file.
+     * Returns the total number of cards (euqal to the number of lines) in the input file.
      *
      * @return the total number of cards
      */
@@ -38,11 +37,14 @@ public class Solution
     }
     
     /**
-     * Reads the input file and for each line (game), it calculates the number of points.
-     * For the first winning number it gives 1 point, for the second 2 points, for the third 4 points, etc.
+     * Reads the input file and for each line (game), it calculates the number total cards.
      * Each game is displayed as follows: "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53"
      * where the first part separated by the pipe (|) is the list of winning numbers 
      * and the second part is the list of numbers on the card.
+     * Each time a card has a winning number on it, other copies of the next scratchcards are won equal to the number of matches.
+     * 
+     * In the previous example: "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53"
+     * Since there are 4 matching numbers, 4 copies of the next card (2, 3, 4, 5) are won.
      * 
      * @param args The command line arguments.
      */
@@ -59,9 +61,7 @@ public class Solution
 
         Map<Integer, Integer> cardMap = new HashMap<Integer, Integer>();
         for (int i = 1; i <= totalCards; ++i)
-        {
             cardMap.put(i, 1);
-        }
 
         try
         {
@@ -91,41 +91,25 @@ public class Solution
                 winningNumbers.retainAll(myNumbers);
                 winningNumberSize = winningNumbers.size();
 
-
-                for (int i = currentCard+1; i <= currentCard+winningNumberSize && i <= totalCards; ++i)
+                for (int k = 0; k < cardMap.get(currentCard); ++k)
                 {
-                    cardMap.put(i, (cardMap.getOrDefault(i, 1) + 1) * cardMap.get(currentCard));
+                    for (int i = currentCard+1; i <= currentCard+winningNumberSize && i <= totalCards; ++i)
+                        cardMap.put(i, (cardMap.get(i) + 1));
                 }
-
-
-
-                /*
-
-                    System.err.println("The number of winning numbers (" + winningNumberSize + ") plus the current card (" + currentCard + ") is greater than the total number of cards (" + totalCards + ").");
-                    cardMap.put(currentCard, cardMap.get())
-                    //res += totalCards - currentCard; // +1 ?????
-                }
-                else
-                {
-                    //res += winningNumberSize;
-                    //System.err.println("Card " + currentCard + ": " + splitData[0] + " | " + splitData[1] + " | " + winningNumberSize);
-                }*/
 
                 winningNumbers.clear();
                 myNumbers.clear();
 
                 currentCard++;
             }
-
+            
             for (var entry : cardMap.entrySet())
-            {
-                System.err.println("Card " + entry.getKey() + ": " + entry.getValue());
-            }
-
+                res += entry.getValue();
+            
             myReader.close();
 
 
-            System.out.println("Result: " + res);
+            System.out.println("Total number of scratchcards: " + res);
         }
         catch (FileNotFoundException e)
         {
