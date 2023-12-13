@@ -11,10 +11,10 @@ public class Solution
      * Generates a mapping based on the provided conversion map name, data, and scanner.
      * The mapping is stored in the given list of lists.
      *
-     * @param myReader          the scanner used to read the data
-     * @param conversionMapName the name of the conversion map
-     * @param data              the data containing the mapping information
-     * @param mapping           the list of lists to store the generated mapping
+     * @param myReader          The scanner used to read the data
+     * @param conversionMapName The name of the conversion map
+     * @param data              The data containing the mapping information
+     * @param mapping           The list of lists to store the generated mapping
      */
     public static void generateMapping(Scanner myReader, String conversionMapName, String data, List<List<Long>> mapping)
     {
@@ -46,6 +46,29 @@ public class Solution
         }        
     }
 
+
+    /**
+     * Converts the given seed based on the provided mapping.
+     * 
+     * @param mapping   The mapping to use for the conversion
+     * @param seed      The seed to convert
+     * @param seeds     The list of seeds
+     * @param seedIndex The index of the seed to convert
+     * @return          The converted seed
+     */
+    public static BigInteger conversionStep(List<List<Long>> mapping, BigInteger seed, List<BigInteger> seeds, int seedIndex)
+    {
+        for (var mappingEntry : mapping)
+        {
+            if (seed.compareTo(BigInteger.valueOf(mappingEntry.get(1))) >= 0 && seed.compareTo(BigInteger.valueOf(mappingEntry.get(1) + mappingEntry.get(2))) <= 0) 
+            {
+                seed = seed.subtract(BigInteger.valueOf(mappingEntry.get(1))).add(BigInteger.valueOf(mappingEntry.get(0)));                
+                return seed;
+            }   
+        }
+
+        return seed;
+    }
     
     /**
      * Generates for each starting seed the corresponding result based on the input mapping consisting of:
@@ -116,83 +139,32 @@ public class Solution
                 generateMapping(myReader, "light-to-temperature map:", data, lightToTemperature);
                 generateMapping(myReader, "temperature-to-humidity map:", data, temperatureToHumidity);
                 generateMapping(myReader, "humidity-to-location map:", data, humidityToLocation);
-
             }
             
             for (int i = 0; i < seeds.size(); i++)
             {
                 BigInteger seed = seeds.get(i);
+                
+                seed = conversionStep(seedToSoil, seed, seeds, i);
+                seeds.set(i, seed);
+                
+                seed = conversionStep(soilToFertilizer, seed, seeds, i);
+                seeds.set(i, seed);
 
-                for (var seedToSoilEntry : seedToSoil)
-                {
-                    
-                    if (seed.compareTo(BigInteger.valueOf(seedToSoilEntry.get(1))) >= 0 && seed.compareTo(BigInteger.valueOf(seedToSoilEntry.get(1) + seedToSoilEntry.get(2))) <= 0) 
-                    {
-                        seed = seed.subtract(BigInteger.valueOf(seedToSoilEntry.get(1))).add(BigInteger.valueOf(seedToSoilEntry.get(0)));
-                        seeds.set(i, seed);                        
-                        break;
-                    }   
-                }
+                seed = conversionStep(fertilizerToWater, seed, seeds, i);
+                seeds.set(i, seed);
 
-                for (var soilToFertilizerEntry : soilToFertilizer)
-                {
-                    if (seed.compareTo(BigInteger.valueOf(soilToFertilizerEntry.get(1))) >= 0 && seed.compareTo(BigInteger.valueOf(soilToFertilizerEntry.get(1) + soilToFertilizerEntry.get(2))) <= 0) 
-                    {
-                        seed = seed.subtract(BigInteger.valueOf(soilToFertilizerEntry.get(1))).add(BigInteger.valueOf(soilToFertilizerEntry.get(0)));
-                        seeds.set(i, seed);
-                        break;
-                    }
-                }
+                seed = conversionStep(waterToLight, seed, seeds, i);
+                seeds.set(i, seed);
 
-                for (var fertilizerToWaterEntry : fertilizerToWater)
-                {
-                    if (seed.compareTo(BigInteger.valueOf(fertilizerToWaterEntry.get(1))) >= 0 && seed.compareTo(BigInteger.valueOf(fertilizerToWaterEntry.get(1) + fertilizerToWaterEntry.get(2))) <= 0) 
-                    {
-                        seed = seed.subtract(BigInteger.valueOf(fertilizerToWaterEntry.get(1))).add(BigInteger.valueOf(fertilizerToWaterEntry.get(0)));
-                        seeds.set(i, seed);
-                        break;
-                    }
-                }
+                seed = conversionStep(lightToTemperature, seed, seeds, i);
+                seeds.set(i, seed);
 
-                for (var waterToLightEntry : waterToLight)
-                {
-                    if (seed.compareTo(BigInteger.valueOf(waterToLightEntry.get(1))) >= 0 && seed.compareTo(BigInteger.valueOf(waterToLightEntry.get(1) + waterToLightEntry.get(2))) <= 0) 
-                    {
-                        seed = seed.subtract(BigInteger.valueOf(waterToLightEntry.get(1))).add(BigInteger.valueOf(waterToLightEntry.get(0)));
-                        seeds.set(i, seed);
-                        break;
-                    }
-                }
+                seed = conversionStep(temperatureToHumidity, seed, seeds, i);
+                seeds.set(i, seed);
 
-                for (var lightToTemperatureEntry : lightToTemperature)
-                {
-                    if (seed.compareTo(BigInteger.valueOf(lightToTemperatureEntry.get(1))) >= 0 && seed.compareTo(BigInteger.valueOf(lightToTemperatureEntry.get(1) + lightToTemperatureEntry.get(2))) <= 0) 
-                    {
-                        seed = seed.subtract(BigInteger.valueOf(lightToTemperatureEntry.get(1))).add(BigInteger.valueOf(lightToTemperatureEntry.get(0)));
-                        seeds.set(i, seed);
-                        break;
-                    }
-                }
-
-                for (var temperatureToHumidityEntry : temperatureToHumidity) 
-                {
-                    if (seed.compareTo(BigInteger.valueOf(temperatureToHumidityEntry.get(1))) >= 0 && seed.compareTo(BigInteger.valueOf(temperatureToHumidityEntry.get(1) + temperatureToHumidityEntry.get(2))) <= 0) 
-                    {
-                        seed = seed.subtract(BigInteger.valueOf(temperatureToHumidityEntry.get(1))).add(BigInteger.valueOf(temperatureToHumidityEntry.get(0)));
-                        seeds.set(i, seed);
-                        break;
-                    }
-                }
-
-                for (var humidityToLocationEntry : humidityToLocation)
-                {
-                    if (seed.compareTo(BigInteger.valueOf(humidityToLocationEntry.get(1))) >= 0 && seed.compareTo(BigInteger.valueOf(humidityToLocationEntry.get(1) + humidityToLocationEntry.get(2))) <= 0) 
-                    {
-                        seed = seed.subtract(BigInteger.valueOf(humidityToLocationEntry.get(1))).add(BigInteger.valueOf(humidityToLocationEntry.get(0)));
-                        seeds.set(i, seed);
-                        break;
-                    }
-                }
+                seed = conversionStep(humidityToLocation, seed, seeds, i);
+                seeds.set(i, seed);
             }
 
             for (var seed : seeds)
