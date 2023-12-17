@@ -57,8 +57,10 @@ public class Solution
      * @param seedIndex The index of the seed to convert
      * @return          The converted seed
      */
-    public static BigInteger conversionStep(List<List<Long>> mapping, List<Long> seedRangeEntry, List<List<Long>> seeds, int seedIndex)
+    public static List<List<Long>> conversionStep(List<List<Long>> mapping, List<List<Long>> seeds, int seedIndex)
     {
+        List<Long> seedRangeEntry = seeds.get(seedIndex);
+
         Long startingSeedRange = seedRangeEntry.get(0);
         Long endingSeedRange = seedRangeEntry.get(1);
 
@@ -69,7 +71,7 @@ public class Solution
 
         for (var mappingEntry : mapping)
         {
-            //System.out.println("Mapping entry: " + mappingEntry.get(0) + " " + mappingEntry.get(1) + " " + mappingEntry.get(2));
+            System.out.println("Mapping entry: " + mappingEntry.get(0) + " " + mappingEntry.get(1) + " " + mappingEntry.get(2));
             startingConversionRange = mappingEntry.get(1);
             endingConversionRange = mappingEntry.get(1) + mappingEntry.get(2) - 1L;
             
@@ -92,33 +94,36 @@ public class Solution
                 List <Long> newEntry = new ArrayList<>();
                 newEntry.add(newStartingConversionRange);
                 newEntry.add(endingSeedRange - startingConversionRange + newStartingConversionRange);
-
                 seeds.set(seedIndex, newEntry);
 
                 // need to append the extra to the seeds list
                 List <Long> extraEntry = new ArrayList<>();
                 extraEntry.add(startingSeedRange);
                 extraEntry.add(newStartingConversionRange - 1L);
+                seeds.add(extraEntry);
             }
             else if (startingSeedRange > startingConversionRange && startingSeedRange <= endingConversionRange && endingSeedRange > endingConversionRange)
             {
                 System.out.println("Partial Right");
+                List <Long> newEntry = new ArrayList<>();
+                newEntry.add(startingSeedRange - startingConversionRange + newStartingConversionRange);
+                newEntry.add(newEndingConversionRange);
+                seeds.set(seedIndex, newEntry);
+
+                // need to append the extra to the seeds list
+                List <Long> extraEntry = new ArrayList<>();
+                extraEntry.add(newEndingConversionRange + 1L);
+                extraEntry.add(endingSeedRange);
+                seeds.add(extraEntry);
             }
             else
             {
-                System.out.println("Not Compatible");
+                System.out.println("Not Compatible with " + startingSeedRange + " " + endingSeedRange);
             }
-
-            /* 
-
-            else
-            {
-                System.out.println("NOT COMPATIBLE: Range (" + startingSeedRange + ", " + endingSeedRange + ") not contained in: (" + startingConversionRange + ", " + endingConversionRange + ")");
-            }*/
 
         }
 
-        return null;
+        return seeds;
     }
     
     /**
@@ -212,21 +217,18 @@ public class Solution
                 generateMapping(myReader, "humidity-to-location map:", data, humidityToLocation);
             }
 
-
-
-            
             List<Long> seedRangeEntry;
             
             for (int i = 0; i < seeds.size(); i++)
             {
-                seedRangeEntry = seeds.get(i); // ES: 79 92
+                //System.out.println(seeds.size());
+                //seedRangeEntry = seeds.get(i); // ES: 79 92
                 
-                conversionStep(seedToSoil, seedRangeEntry, seeds, i);
-                //seeds.set(i, seed);
-                /*    
-                seed = conversionStep(soilToFertilizer, seed, seeds, i);
-                seeds.set(i, seed);
+                seeds = conversionStep(seedToSoil, seeds, i);                
+                   
+                //seeds = conversionStep(soilToFertilizer, seed, seeds, i);
 
+                /* 
                 seed = conversionStep(fertilizerToWater, seed, seeds, i);
                 seeds.set(i, seed);
 
