@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigInteger;
 
+
 public class Solution
 {
     /**
@@ -56,18 +57,68 @@ public class Solution
      * @param seedIndex The index of the seed to convert
      * @return          The converted seed
      */
-    public static BigInteger conversionStep(List<List<Long>> mapping, BigInteger seed, List<BigInteger> seeds, int seedIndex)
+    public static BigInteger conversionStep(List<List<Long>> mapping, List<Long> seedRangeEntry, List<List<Long>> seeds, int seedIndex)
     {
+        Long startingSeedRange = seedRangeEntry.get(0);
+        Long endingSeedRange = seedRangeEntry.get(1);
+
+        Long startingConversionRange = null;
+        Long endingConversionRange = null;
+        Long newStartingConversionRange = null;
+        Long newEndingConversionRange = null;
+
         for (var mappingEntry : mapping)
         {
-            if (seed.compareTo(BigInteger.valueOf(mappingEntry.get(1))) >= 0 && seed.compareTo(BigInteger.valueOf(mappingEntry.get(1) + mappingEntry.get(2))) <= 0) 
+            //System.out.println("Mapping entry: " + mappingEntry.get(0) + " " + mappingEntry.get(1) + " " + mappingEntry.get(2));
+            startingConversionRange = mappingEntry.get(1);
+            endingConversionRange = mappingEntry.get(1) + mappingEntry.get(2) - 1L;
+            
+            newStartingConversionRange = mappingEntry.get(0);
+            newEndingConversionRange = mappingEntry.get(0) + mappingEntry.get(2) - 1L;
+
+            
+            if (startingSeedRange >= startingConversionRange && endingSeedRange <= endingConversionRange) // Fully contained
             {
-                seed = seed.subtract(BigInteger.valueOf(mappingEntry.get(1))).add(BigInteger.valueOf(mappingEntry.get(0)));                
-                return seed;
-            }   
+                System.out.println("Range (" + startingSeedRange + ", " + endingSeedRange + ") fully contained in the conversion range: (" + startingConversionRange + ", " + endingConversionRange + ")");
+                List <Long> newEntry = new ArrayList<>();
+                newEntry.add(startingSeedRange - startingConversionRange + newStartingConversionRange);
+                newEntry.add(endingSeedRange - startingConversionRange + newStartingConversionRange);
+
+                seeds.set(seedIndex, newEntry);
+            }
+            else if (startingSeedRange < startingConversionRange && endingSeedRange >= startingConversionRange && endingSeedRange <= endingConversionRange)
+            {
+                System.out.println("Partial Left");
+                List <Long> newEntry = new ArrayList<>();
+                newEntry.add(newStartingConversionRange);
+                newEntry.add(endingSeedRange - startingConversionRange + newStartingConversionRange);
+
+                seeds.set(seedIndex, newEntry);
+
+                // need to append the extra to the seeds list
+                List <Long> extraEntry = new ArrayList<>();
+                extraEntry.add(startingSeedRange);
+                extraEntry.add(newStartingConversionRange - 1L);
+            }
+            else if (startingSeedRange > startingConversionRange && startingSeedRange <= endingConversionRange && endingSeedRange > endingConversionRange)
+            {
+                System.out.println("Partial Right");
+            }
+            else
+            {
+                System.out.println("Not Compatible");
+            }
+
+            /* 
+
+            else
+            {
+                System.out.println("NOT COMPATIBLE: Range (" + startingSeedRange + ", " + endingSeedRange + ") not contained in: (" + startingConversionRange + ", " + endingConversionRange + ")");
+            }*/
+
         }
 
-        return seed;
+        return null;
     }
     
     /**
@@ -98,10 +149,9 @@ public class Solution
      */
     public static void main(String[] args)
     {
+        Long res = 0L;
 
-        BigInteger res = BigInteger.valueOf(Long.MAX_VALUE).multiply(BigInteger.valueOf(2));
-
-        List<BigInteger> seeds = new ArrayList<>();
+        List<List<Long>> seeds = new ArrayList<>();
 
         List<List<Long>> seedToSoil = new ArrayList<List<Long>>();
         List<List<Long>> soilToFertilizer = new ArrayList<List<Long>>();
@@ -111,9 +161,9 @@ public class Solution
         List<List<Long>> temperatureToHumidity = new ArrayList<List<Long>>();
         List<List<Long>> humidityToLocation = new ArrayList<List<Long>>();
 
-        BigInteger startingSeedRange = null;
+        Long startingSeedRange = null;
         boolean startingSeedRangeFound = false;
-        int currentSeed =1;
+        int currentSeed = 1;
         try
         {
             File myObj = new File("input.txt");
@@ -129,29 +179,25 @@ public class Solution
 
                 for (String element : splitData[1].stripLeading().split(" "))
                 {   
-                    System.out.println("Current seed: " + currentSeed++);
+                    //System.out.println("Current seed: " + currentSeed++);
                     if (!startingSeedRangeFound)
                     {
-                        startingSeedRange = new BigInteger(element);
+                        startingSeedRange = Long.parseLong(element);
                         startingSeedRangeFound = true;
                     }
                     else
-                    {
-                        for (BigInteger i = startingSeedRange; i.compareTo((new BigInteger(element)).add(startingSeedRange)) < 0; i = i.add(BigInteger.ONE))
-                        {
-                            seeds.add(new BigInteger(i.toString()));
-                        }
-                        startingSeedRangeFound = false;    
+                    {   
+                        List<Long> seedRange = new ArrayList<>();
+                        seedRange.add(startingSeedRange);
+                        Long endingSeedRange = startingSeedRange + Long.parseLong(element) - 1L;
+
+                        seedRange.add(endingSeedRange);
+                        seeds.add(seedRange);
+
+                        startingSeedRangeFound = false;
                     }
                 }       
             }
-            
-            System.out.println("Number of seeds: " + seeds.size());
-
-            for (var seed : seeds)
-            {
-                System.out.println(seed);
-            }   
 
             while(myReader.hasNextLine())
             {
@@ -165,14 +211,19 @@ public class Solution
                 generateMapping(myReader, "temperature-to-humidity map:", data, temperatureToHumidity);
                 generateMapping(myReader, "humidity-to-location map:", data, humidityToLocation);
             }
+
+
+
+            
+            List<Long> seedRangeEntry;
             
             for (int i = 0; i < seeds.size(); i++)
             {
-                BigInteger seed = seeds.get(i);
+                seedRangeEntry = seeds.get(i); // ES: 79 92
                 
-                seed = conversionStep(seedToSoil, seed, seeds, i);
-                seeds.set(i, seed);
-                
+                conversionStep(seedToSoil, seedRangeEntry, seeds, i);
+                //seeds.set(i, seed);
+                /*    
                 seed = conversionStep(soilToFertilizer, seed, seeds, i);
                 seeds.set(i, seed);
 
@@ -189,15 +240,16 @@ public class Solution
                 seeds.set(i, seed);
 
                 seed = conversionStep(humidityToLocation, seed, seeds, i);
-                seeds.set(i, seed);
-            }
+                seeds.set(i, seed); */
+            } 
 
+            /*/
             for (var seed : seeds)
             {
                 if (seed.compareTo(res) < 0)
                     res = seed;
-            }
-           
+            }*/
+            
             myReader.close();
             System.out.println("Result: " + res);
         }
