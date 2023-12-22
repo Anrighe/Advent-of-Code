@@ -77,12 +77,14 @@ public class Solution
             
             newStartingConversionRange = mappingEntry.get(0);
             newEndingConversionRange = mappingEntry.get(0) + mappingEntry.get(2) - 1L;
+            
 
             
             if (startingSeedRange >= startingConversionRange && endingSeedRange <= endingConversionRange) // Fully contained
             {
                 System.out.println("Range (" + startingSeedRange + ", " + endingSeedRange + ") fully contained in the conversion range: (" + startingConversionRange + ", " + endingConversionRange + ")");
                 List <Long> newEntry = new ArrayList<>();
+                System.out.println("Adding new entry (seedIndex=" + seedIndex + "): " + (startingSeedRange - startingConversionRange + newStartingConversionRange) + " " + (endingSeedRange - startingConversionRange + newStartingConversionRange));
                 newEntry.add(startingSeedRange - startingConversionRange + newStartingConversionRange);
                 newEntry.add(endingSeedRange - startingConversionRange + newStartingConversionRange);
 
@@ -90,37 +92,43 @@ public class Solution
             }
             else if (startingSeedRange < startingConversionRange && endingSeedRange >= startingConversionRange && endingSeedRange <= endingConversionRange)
             {
-                System.out.println("Partial Left");
+                System.out.println("Partial Left for seed range (" + startingSeedRange + ", " + endingSeedRange + ") and conversion range (" + startingConversionRange + ", " + endingConversionRange + ")");
                 List <Long> newEntry = new ArrayList<>();
                 newEntry.add(newStartingConversionRange);
                 newEntry.add(endingSeedRange - startingConversionRange + newStartingConversionRange);
+                System.out.println("Converting seed range (seedIndex=" + seedIndex + "): " + newStartingConversionRange + " " + (endingSeedRange - startingConversionRange + newStartingConversionRange));
                 seeds.set(seedIndex, newEntry);
 
                 // need to append the extra to the seeds list
                 List <Long> extraEntry = new ArrayList<>();
-                extraEntry.add(startingSeedRange);
+                extraEntry.add(startingConversionRange);
                 extraEntry.add(newStartingConversionRange - 1L);
+                System.out.println("Adding new entry to seeds (seedIndex=" + seedIndex + "): " + startingSeedRange + " " + (newStartingConversionRange - 1L));
                 seeds.add(extraEntry);
             }
             else if (startingSeedRange > startingConversionRange && startingSeedRange <= endingConversionRange && endingSeedRange > endingConversionRange)
             {
-                System.out.println("Partial Right");
+                System.out.println("Partial Right for seed range (" + startingSeedRange + ", " + endingSeedRange + ") and conversion range (" + startingConversionRange + ", " + endingConversionRange + ")");
                 List <Long> newEntry = new ArrayList<>();
                 newEntry.add(startingSeedRange - startingConversionRange + newStartingConversionRange);
                 newEntry.add(newEndingConversionRange);
+                System.out.println("Converting seed range (seedIndex=" + seedIndex + "): " + (startingSeedRange - startingConversionRange + newStartingConversionRange) + " " + newEndingConversionRange);
                 seeds.set(seedIndex, newEntry);
 
                 // need to append the extra to the seeds list
                 List <Long> extraEntry = new ArrayList<>();
-                extraEntry.add(newEndingConversionRange + 1L);
+                extraEntry.add(endingConversionRange + 1L);
                 extraEntry.add(endingSeedRange);
+                System.out.println("Adding new entry to seeds (seedIndex=" + seedIndex + "): " + (newEndingConversionRange + 1L) + " " + endingSeedRange);
                 seeds.add(extraEntry);
             }
             else
             {
-                System.out.println("Not Compatible with " + startingSeedRange + " " + endingSeedRange);
+                System.out.println("Seed range (" + startingSeedRange + ", " + endingSeedRange + ") not compatible with conversion range (" + startingConversionRange + ", " + endingConversionRange + ")");
             }
 
+
+    
         }
 
         return seeds;
@@ -219,13 +227,23 @@ public class Solution
 
             List<Long> seedRangeEntry;
             
+            System.out.println("SEEDS BEFORE CONVERSION:");
+            for (var seed : seeds)
+                System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
+            System.out.println("-------------------------------------");
+
             for (int i = 0; i < seeds.size(); i++)
             {
                 //System.out.println(seeds.size());
                 //seedRangeEntry = seeds.get(i); // ES: 79 92
                 
-                seeds = conversionStep(seedToSoil, seeds, i);                
-                   
+                seeds = conversionStep(seedToSoil, seeds, i);        
+
+                System.out.println("SEEDS AFTER CONVERSION:");
+                for (var seed : seeds)
+                    System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
+                System.out.println("-------------------------------------");   
+
                 //seeds = conversionStep(soilToFertilizer, seed, seeds, i);
 
                 /* 
@@ -244,6 +262,26 @@ public class Solution
                 seed = conversionStep(humidityToLocation, seed, seeds, i);
                 seeds.set(i, seed); */
             } 
+
+            for (int i = 0; i < seeds.size(); i++)
+            {
+                seeds = conversionStep(soilToFertilizer, seeds, i);
+                System.out.println("STEP 2: SEEDS AFTER CONVERSION:");
+                for (var seed : seeds)
+                    System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
+                System.out.println("-------------------------------------"); 
+            }
+
+            for (int i = 0; i < seeds.size(); i++)
+            {
+                seeds = conversionStep(fertilizerToWater, seeds, i);
+                System.out.println("STEP 3: SEEDS AFTER CONVERSION:");
+                for (var seed : seeds)
+                    System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
+                System.out.println("-------------------------------------"); 
+            }
+
+
 
             /*/
             for (var seed : seeds)
