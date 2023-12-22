@@ -59,6 +59,7 @@ public class Solution
      */
     public static List<List<Long>> conversionStep(List<List<Long>> mapping, List<List<Long>> seeds, int seedIndex)
     {
+        System.out.println("CONVERSION STEP!");
         List<Long> seedRangeEntry = seeds.get(seedIndex);
 
         Long startingSeedRange = seedRangeEntry.get(0);
@@ -89,6 +90,8 @@ public class Solution
                 newEntry.add(endingSeedRange - startingConversionRange + newStartingConversionRange);
 
                 seeds.set(seedIndex, newEntry);
+
+                return seeds;
             }
             else if (startingSeedRange < startingConversionRange && endingSeedRange >= startingConversionRange && endingSeedRange <= endingConversionRange)
             {
@@ -105,6 +108,12 @@ public class Solution
                 extraEntry.add(startingConversionRange - 1L);
                 System.out.println("Adding new entry to seeds (seedIndex=" + seedIndex + "): " + startingSeedRange + " " + (startingConversionRange - 1L));
                 seeds.add(extraEntry);
+
+                System.out.println("SEEDS AFTER PARTIAL LEFT CONVERSION:");
+                for (var seed : seeds)
+                    System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
+
+                return seeds;
             }
             else if (startingSeedRange > startingConversionRange && startingSeedRange <= endingConversionRange && endingSeedRange > endingConversionRange)
             {
@@ -121,6 +130,8 @@ public class Solution
                 extraEntry.add(endingSeedRange);
                 System.out.println("Adding new entry to seeds (seedIndex=" + seedIndex + "): " + (newEndingConversionRange + 1L) + " " + endingSeedRange);
                 seeds.add(extraEntry);
+
+                return seeds;
             }
             else
             {
@@ -162,7 +173,7 @@ public class Solution
      */
     public static void main(String[] args)
     {
-        Long res = 0L;
+        Long res = Long.MAX_VALUE;
 
         List<List<Long>> seeds = new ArrayList<>();
 
@@ -176,7 +187,7 @@ public class Solution
 
         Long startingSeedRange = null;
         boolean startingSeedRangeFound = false;
-        int currentSeed = 1;
+
         try
         {
             File myObj = new File("input.txt");
@@ -192,7 +203,6 @@ public class Solution
 
                 for (String element : splitData[1].stripLeading().split(" "))
                 {   
-                    //System.out.println("Current seed: " + currentSeed++);
                     if (!startingSeedRangeFound)
                     {
                         startingSeedRange = Long.parseLong(element);
@@ -324,12 +334,12 @@ public class Solution
 
 
 
-            /*/
+            
             for (var seed : seeds)
             {
-                if (seed.compareTo(res) < 0)
-                    res = seed;
-            }*/
+                if (seed.get(0) < res)
+                    res = seed.get(0);
+            }
             
             myReader.close();
             System.out.println("Result: " + res);
