@@ -101,9 +101,9 @@ public class Solution
 
                 // need to append the extra to the seeds list
                 List <Long> extraEntry = new ArrayList<>();
-                extraEntry.add(startingConversionRange);
-                extraEntry.add(newStartingConversionRange - 1L);
-                System.out.println("Adding new entry to seeds (seedIndex=" + seedIndex + "): " + startingSeedRange + " " + (newStartingConversionRange - 1L));
+                extraEntry.add(startingSeedRange);
+                extraEntry.add(startingConversionRange - 1L);
+                System.out.println("Adding new entry to seeds (seedIndex=" + seedIndex + "): " + startingSeedRange + " " + (startingConversionRange - 1L));
                 seeds.add(extraEntry);
             }
             else if (startingSeedRange > startingConversionRange && startingSeedRange <= endingConversionRange && endingSeedRange > endingConversionRange)
@@ -280,6 +280,47 @@ public class Solution
                     System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
                 System.out.println("-------------------------------------"); 
             }
+
+            for (int i = 0; i < seeds.size(); i++)
+            {
+                seeds = conversionStep(waterToLight, seeds, i);
+                System.out.println("STEP 4: SEEDS AFTER CONVERSION:");
+                for (var seed : seeds)
+                    System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
+                System.out.println("-------------------------------------"); 
+            }
+
+            for (int i = 0; i < seeds.size(); i++)
+            {
+                seeds = conversionStep(lightToTemperature, seeds, i);
+                System.out.println("STEP 5: SEEDS AFTER CONVERSION:");
+                for (var seed : seeds)
+                    System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
+                System.out.println("-------------------------------------"); 
+            }
+
+            for (int i = 0; i < seeds.size(); i++)
+            {
+                seeds = conversionStep(temperatureToHumidity, seeds, i);
+                System.out.println("STEP 6: SEEDS AFTER CONVERSION:");
+                for (var seed : seeds)
+                    System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
+                System.out.println("-------------------------------------"); 
+            }
+
+            for (int i = 0; i < seeds.size(); i++)
+            {
+                seeds = conversionStep(humidityToLocation, seeds, i);
+                System.out.println("STEP 7: SEEDS AFTER CONVERSION:");
+                for (var seed : seeds)
+                    System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
+                System.out.println("-------------------------------------"); 
+            }
+
+            // print seeds after conversion
+            System.out.println("SEEDS AFTER CONVERSION:");
+            for (var seed : seeds)
+                System.out.println("Seed: " + seed.get(0) + " " + seed.get(1));
 
 
 
