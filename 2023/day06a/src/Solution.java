@@ -27,7 +27,7 @@ public class Solution
      */
     public static void main(String[] args)
     {
-        int res = 1;
+        int res = 0;
 
         try
         {
@@ -82,8 +82,11 @@ public class Solution
                     if (traveledDistance > distances[i])
                         numberOfWaysToWin++;
                 }
-
-                res *= numberOfWaysToWin;
+                
+                if (res != 0)
+                    res *= numberOfWaysToWin;
+                else
+                    res = numberOfWaysToWin;
             }
 
             myReader.close();
