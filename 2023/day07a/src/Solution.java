@@ -15,6 +15,47 @@ public class Solution
     final int twoPair = 3;
     final int onePair = 2;
     final int highCard = 1;
+
+    public int getCharOccurrences(String hand, int charPosition)
+    {
+        int res = 0;
+
+        for (int i = 0; i < hand.length(); ++i)
+        {
+            if (hand.charAt(i) == hand.charAt(charPosition))
+                ++res;
+        }
+
+        return res;
+    }
+
+    public int findHandValue(String hand)
+    {
+        int charOccurrencesCount;
+
+        for (int i = 0; i < hand.length(); ++i)
+        {
+            charOccurrencesCount = getCharOccurrences(hand, i);
+            System.out.println("charOccurrencesCount of " + hand.charAt(i) + " is " + charOccurrencesCount);
+            switch (charOccurrencesCount) 
+            {
+                case fiveOfAKind:
+                    return fiveOfAKind;
+                
+                case fourOfAKind:
+                    return fourOfAKind;
+
+
+
+            
+                default:
+                    return 22222;
+            }
+            
+        }
+        return -1;
+
+    }
     
     /**
      * 
@@ -22,8 +63,10 @@ public class Solution
      */
     public static void main(String[] args)
     {
+        Solution solution = new Solution();
         long res = 0;
 
+        // hand: (bettedAmount, handValue)
         Map <String, Pair<Integer, Integer>> handValues = new HashMap<String, Pair<Integer, Integer>>(); 
 
         try
@@ -33,6 +76,16 @@ public class Solution
 
             String data = "";
             String[] splitData;
+
+            while (myReader.hasNextLine())
+            {
+                data = myReader.nextLine();
+
+                splitData = data.split(" ");
+                handValues.put(splitData[0], new Pair <Integer, Integer> (Integer.parseInt(splitData[1]), solution.findHandValue(splitData[0])));
+
+                System.out.println("Hand: " + splitData[0] + " - " + splitData[1] + " - " + solution.findHandValue(splitData[0]));
+            }
 
 
             myReader.close();
