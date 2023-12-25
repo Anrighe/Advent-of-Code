@@ -4,12 +4,13 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
 import javafx.util.*;
-
 
 public class Solution
 {
@@ -109,12 +110,27 @@ public class Solution
 
                 splitData = data.split(" ");
                 handValues.put(splitData[0], new Pair <Integer, Integer> (Integer.parseInt(splitData[1]), solution.findHandValue(splitData[0])));
-
-                //System.out.println("Hand: " + splitData[0] + " - " + splitData[1] + " - " + solution.findHandValue(splitData[0]));
             }
 
             for (Map.Entry<String, Pair<Integer, Integer>> entry : handValues.entrySet())
                 System.out.println("Hand: " + entry.getKey() + " - " + entry.getValue().getKey() + " - " + entry.getValue().getValue());
+
+
+            List<String> orderedHandValues = new ArrayList<String>(handValues.keySet());
+
+            Comparator<String> handValuesComparator = new HandValuesComparator(handValues);
+            Collections.sort(orderedHandValues, handValuesComparator);
+
+            int rank = 1;
+
+            for (String hand : orderedHandValues)
+            {
+                res += rank * handValues.get(hand).getKey();
+                rank++;
+                System.out.println(res);
+            }
+
+            //System.out.println("Ordered hand: " + hand + " - " + handValues.get(hand).getKey() + " - " + handValues.get(hand).getValue());
 
 
             myReader.close();
