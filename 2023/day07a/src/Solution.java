@@ -39,37 +39,28 @@ public class Solution
     {
         int charOccurrencesCount = 0;
         Set <Character> viewedChars = new HashSet<Character>();
-
+        
         int pairCount = 0;
         int threeOfAKindCount = 0;
-        //System.out.println("hand: " + hand);
+
         for (int i = 0; i < hand.length(); ++i)
         {
-            //System.out.println("i: " + i);
             if (viewedChars.contains(hand.charAt(i)) == false)
             {                
-                //System.out.println("char " + hand.charAt(i) + " is not in the list for the hand " + hand);
                 viewedChars.add(hand.charAt(i));
                 charOccurrencesCount = getCharOccurrences(hand, i);
-                //System.out.println("charOccurrencesCount of " + hand.charAt(i) + " is " + charOccurrencesCount);
                 
                 if (charOccurrencesCount == 2)
-                ++pairCount;
+                    ++pairCount;
                 else if (charOccurrencesCount == 3)
                     ++threeOfAKindCount;
             }
-            //else
-                //System.out.println("char " + hand.charAt(i) + " is already in the list for the hand " + hand);
-
-            //System.out.println(viewedChars);
                 
-
-            if (charOccurrencesCount == fiveOfAKind)
+            if (charOccurrencesCount == 5)
                 return fiveOfAKind;
             
-            if (charOccurrencesCount == fourOfAKind)
+            if (charOccurrencesCount == 4)
                 return fourOfAKind;
-    
         }
 
         if (pairCount == 1 && threeOfAKindCount == 1)
@@ -83,8 +74,29 @@ public class Solution
         else
             return highCard;
     }
-    
-    /**
+
+    /*
+     * Calculates the total winnings of the set of hands based on the following rules:
+     * 
+     * 1. Each hand can be one of the following types:
+     *  - Five of a kind, where all five cards have the same label: AAAAA
+     *  - Four of a kind, where four cards have the same label and one card has a different label: AA8AA
+     *  - Full house, where three cards have the same label, and the remaining two cards share a different label: 23332
+     *  - Three of a kind, where three cards have the same label, and the remaining two cards are each different from any other card in the hand: TTT98    
+     *  - Two pair, where two cards share one label, two other cards share a second label, and the remaining card has a third label: 23432
+     *  - One pair, where two cards share one label, and the other three cards have a different label from the pair and each other: A23A4
+     *  - High card, where all cards' labels are distinct: 23456
+     * 
+     * 2. Hands are primarily ordered based on type; for example, every full house is stronger than any three of a kind.
+     * 
+     * 3. If two hands have the same type, a second ordering rule takes effect. Start by comparing the first card in each hand. 
+     *  If these cards are different, the hand with the stronger first card is considered stronger. 
+     *  If the first card in each hand have the same label, however, then move on to considering the second card in each hand. 
+     *  If they differ, the hand with the higher second card wins; otherwise, continue with the third card in each hand, 
+     *  then the fourth, then the fifth.
+     * 
+     * The total winnings are calculated by adding up the result of multiplying each hand's bid with its rank, 
+     *  where the weakest hand gets rank 1.
      * 
      * @param args The command line arguments.
      */
@@ -93,7 +105,7 @@ public class Solution
         Solution solution = new Solution();
         long res = 0;
 
-        // hand: (bettedAmount, handValue)
+        // Key(hand): Value(bettedAmount, handValue)
         Map <String, Pair<Integer, Integer>> handValues = new HashMap<String, Pair<Integer, Integer>>(); 
 
         try
@@ -112,10 +124,6 @@ public class Solution
                 handValues.put(splitData[0], new Pair <Integer, Integer> (Integer.parseInt(splitData[1]), solution.findHandValue(splitData[0])));
             }
 
-            for (Map.Entry<String, Pair<Integer, Integer>> entry : handValues.entrySet())
-                System.out.println("Hand: " + entry.getKey() + " - " + entry.getValue().getKey() + " - " + entry.getValue().getValue());
-
-
             List<String> orderedHandValues = new ArrayList<String>(handValues.keySet());
 
             Comparator<String> handValuesComparator = new HandValuesComparator(handValues);
@@ -127,11 +135,7 @@ public class Solution
             {
                 res += rank * handValues.get(hand).getKey();
                 rank++;
-                System.out.println(res);
             }
-
-            //System.out.println("Ordered hand: " + hand + " - " + handValues.get(hand).getKey() + " - " + handValues.get(hand).getValue());
-
 
             myReader.close();
             System.out.println("Result: " + res);
