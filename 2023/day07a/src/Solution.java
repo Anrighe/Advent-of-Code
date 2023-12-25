@@ -1,8 +1,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
 import javafx.util.*;
 
 
@@ -31,30 +36,51 @@ public class Solution
 
     public int findHandValue(String hand)
     {
-        int charOccurrencesCount;
+        int charOccurrencesCount = 0;
+        Set <Character> viewedChars = new HashSet<Character>();
 
+        int pairCount = 0;
+        int threeOfAKindCount = 0;
+        //System.out.println("hand: " + hand);
         for (int i = 0; i < hand.length(); ++i)
         {
-            charOccurrencesCount = getCharOccurrences(hand, i);
-            System.out.println("charOccurrencesCount of " + hand.charAt(i) + " is " + charOccurrencesCount);
-            switch (charOccurrencesCount) 
-            {
-                case fiveOfAKind:
-                    return fiveOfAKind;
+            //System.out.println("i: " + i);
+            if (viewedChars.contains(hand.charAt(i)) == false)
+            {                
+                //System.out.println("char " + hand.charAt(i) + " is not in the list for the hand " + hand);
+                viewedChars.add(hand.charAt(i));
+                charOccurrencesCount = getCharOccurrences(hand, i);
+                //System.out.println("charOccurrencesCount of " + hand.charAt(i) + " is " + charOccurrencesCount);
                 
-                case fourOfAKind:
-                    return fourOfAKind;
-
-
-
-            
-                default:
-                    return 22222;
+                if (charOccurrencesCount == 2)
+                ++pairCount;
+                else if (charOccurrencesCount == 3)
+                    ++threeOfAKindCount;
             }
-            
-        }
-        return -1;
+            //else
+                //System.out.println("char " + hand.charAt(i) + " is already in the list for the hand " + hand);
 
+            //System.out.println(viewedChars);
+                
+
+            if (charOccurrencesCount == fiveOfAKind)
+                return fiveOfAKind;
+            
+            if (charOccurrencesCount == fourOfAKind)
+                return fourOfAKind;
+    
+        }
+
+        if (pairCount == 1 && threeOfAKindCount == 1)
+            return fullHouse;
+        else if (threeOfAKindCount == 1)
+            return threeOfAKind;
+        else if (pairCount == 2)
+            return twoPair;
+        else if (pairCount == 1)
+            return onePair;
+        else
+            return highCard;
     }
     
     /**
@@ -84,8 +110,11 @@ public class Solution
                 splitData = data.split(" ");
                 handValues.put(splitData[0], new Pair <Integer, Integer> (Integer.parseInt(splitData[1]), solution.findHandValue(splitData[0])));
 
-                System.out.println("Hand: " + splitData[0] + " - " + splitData[1] + " - " + solution.findHandValue(splitData[0]));
+                //System.out.println("Hand: " + splitData[0] + " - " + splitData[1] + " - " + solution.findHandValue(splitData[0]));
             }
+
+            for (Map.Entry<String, Pair<Integer, Integer>> entry : handValues.entrySet())
+                System.out.println("Hand: " + entry.getKey() + " - " + entry.getValue().getKey() + " - " + entry.getValue().getValue());
 
 
             myReader.close();
