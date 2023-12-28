@@ -60,19 +60,79 @@ public class Solution
                 return fiveOfAKind;
             
             if (charOccurrencesCount == 4)
+            {
+                // If there are only 2 types of card in the hand and one of them it's a Jack, 
+                // then it's a five of a kind
+                // Example: JJJJ3
+                // Example: KKJKK
+                if (hand.contains("J"))
+                    return fiveOfAKind;
+
                 return fourOfAKind;
+            }
         }
 
         if (pairCount == 1 && threeOfAKindCount == 1)
+        {
+            // If there are only 2 types of card in the hand and one of them it's a Jack, 
+            // then it's a five of a kind
+            // Example: JJJ33
+            // Example: KKKKJ
+            if (hand.contains("J")) 
+                return fiveOfAKind;
+
             return fullHouse;
+        }
         else if (threeOfAKindCount == 1)
+        {
+            
+            // If there is a three of a kind card in hand and there is a Jack
+            // then it's a four of a kind
+            if (hand.contains("J"))
+                return fourOfAKind;
+
             return threeOfAKind;
+        }
         else if (pairCount == 2)
+        {
+
+            if (hand.contains("J"))
+            {   
+                // If there is a pair of cards (NOT Jack) and there is a pair of Jacks
+                // then it's a four of a kind
+                // Example: JJ88A
+                if (getCharOccurrences(hand, hand.indexOf("J")) == 2)
+                    return fourOfAKind;
+
+                // If there are two pair of cards (both NOT Jack)
+                // then it's a full house
+                // Example: 22QQJ
+                else 
+                    return fullHouse;                
+            }
+
             return twoPair;
+        }
         else if (pairCount == 1)
+        {
+            // If there is ONLY a pair of cards and the hand contains a Jack
+            // then it's a three of a kind
+            // Example: JQQA9
+            if (hand.contains("J"))
+                return threeOfAKind;
+
             return onePair;
+        }
         else
+        {
+            // If there are no combination of cards in hand and there is a Jack
+            // then it's a two of a kind
+            // Example: JQKA9
+            if (hand.contains("J"))
+                return onePair;
+
             return highCard;
+        }
     }
 
     /*
@@ -97,6 +157,16 @@ public class Solution
      * 
      * The total winnings are calculated by adding up the result of multiplying each hand's bid with its rank, 
      *  where the weakest hand gets rank 1.
+     * 
+     * ----------------------------------------------------------------------------------------------------------------------------------
+     * 
+     * Second part of the problem:
+     * 
+     * The Jack card is now a wild card, and can be used as any other card. But is still considered as a Jack and not as the
+     * card it replaces.
+     * 
+     * To balance this, the "J" cards are now the weakest cards in the game, following the order:
+     *  "J", "2", "3", "4", "5", "6", "7", "8", "9", "T", "Q", "K", "A"
      * 
      * @param args The command line arguments.
      */
