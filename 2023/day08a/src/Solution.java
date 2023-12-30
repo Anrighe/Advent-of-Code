@@ -12,32 +12,57 @@ import java.util.List;
 
 import javafx.util.*;
 
-public class Solution
-{
+public class Solution {
+    
+    /*
+    public static String getNextInstruction(List<String> instructions, int currentInstructionIndex) {
+        if ()
+    } */
 
     /*
      * 
      * @param args The command line arguments.
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         int res = 0;
 
-        try
-        {
+        try {
             File myObj = new File("input.txt");
             Scanner myReader = new Scanner(myObj);
 
             String data = "";
             String[] splitData;
+            String currentKey;
+            String currentValue1 = "";
+            String currentValue2 = "";
 
-            while (myReader.hasNextLine())
-            {
+            List<String> instructions = new ArrayList();
+            int currentStep = 0;
+
+            if (myReader.hasNextLine()) {
+                data = myReader.nextLine();
+                for (String s : data.split("(?!^)"))
+                    instructions.add(s);
+            }
+
+            Map<String, Pair<String, String>> networkStructure = new HashMap<String, Pair<String, String>>();
+
+            while (myReader.hasNextLine()) {
                 data = myReader.nextLine();
 
-                splitData = data.split(" ");
+                if (!data.equals("")) {
+                    
+                    currentKey = data.split(" ")[0];                    
+                    
+                    currentValue1 = data.split("\\(")[1].replace("\\)", "").replace(" ", "").split(",")[0]; 
+                    currentValue2 = data.split("\\(")[1].replace("\\)", "").replace(" ", "").split(",")[0]; 
+    
+                    if (!networkStructure.containsKey(currentKey)) {
+                        networkStructure.put(currentKey, new Pair<String, String>(currentValue1, currentValue2));
+                        System.out.println("Added " + currentKey + " with values " + currentValue1 + " and " + currentValue2);
+                    }
+                }
 
-                System.out.println("Data: " + data);
                 
             }
 
@@ -46,13 +71,11 @@ public class Solution
             myReader.close();
             System.out.println("Result: " + res);
         }
-        catch (FileNotFoundException e)
-        {
+        catch (FileNotFoundException e) {
             System.err.println("Was not able to locate the input file.");
             e.printStackTrace();
         }
-        catch (AssertionError ae)
-        {
+        catch (AssertionError ae) {
             System.err.println("Assertion error: something went wrong while collecting input data!");
             ae.printStackTrace();
         }
