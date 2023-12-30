@@ -14,30 +14,44 @@ import javafx.util.*;
 
 public class Solution {
     
-    /*
-    public static String getNextInstruction(List<String> instructions, int currentInstructionIndex) {
-        if ()
-    } */
 
     /*
+     * By following the input instructions, find the number of instruction needed in order to reach "ZZZ" from "AAA".
+     * 
+     * Example: 
+     *  RL
+     * 
+     *  AAA = (BBB, CCC)
+     *  BBB = (DDD, EEE)
+     *  CCC = (ZZZ, GGG)
+     *  DDD = (DDD, DDD)
+     *  EEE = (EEE, EEE)
+     *  GGG = (GGG, GGG)
+     *  ZZZ = (ZZZ, ZZZ)
+     * 
+     * Based on the current position (e.g. AAA), the next position is determined by the instructions (e.g. RL)
+     * and the available paths (e.g. (BBB, CCC) for "AAA").
+     * Each time a "L" instruction is encountered, the first path is taken (e.g. "BBB" in the "AAA" position).
+     * Each time a "R" instruction is encountered, the second path is taken (e.g. "CCC" in the "AAA" position).
+     * If the instructions are terminated and the destination has not yet been reached, the instructions are repeated.
      * 
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
         int res = 0;
+        final String destination = "ZZZ";
+        String currentPosition = "AAA";
 
         try {
             File myObj = new File("input.txt");
             Scanner myReader = new Scanner(myObj);
 
             String data = "";
-            String[] splitData;
             String currentKey;
             String currentValue1 = "";
             String currentValue2 = "";
 
-            List<String> instructions = new ArrayList();
-            int currentStep = 0;
+            List<String> instructions = new ArrayList<String>(); // Specify the type parameter
 
             if (myReader.hasNextLine()) {
                 data = myReader.nextLine();
@@ -54,19 +68,29 @@ public class Solution {
                     
                     currentKey = data.split(" ")[0];                    
                     
-                    currentValue1 = data.split("\\(")[1].replace("\\)", "").replace(" ", "").split(",")[0]; 
-                    currentValue2 = data.split("\\(")[1].replace("\\)", "").replace(" ", "").split(",")[0]; 
+                    currentValue1 = data.split("\\(")[1].replaceAll("\\)", "").replaceAll(" ", "").split(",")[0]; 
+                    currentValue2 = data.split("\\(")[1].replaceAll("\\)", "").replaceAll(" ", "").split(",")[1];
     
-                    if (!networkStructure.containsKey(currentKey)) {
+                    if (!networkStructure.containsKey(currentKey))
                         networkStructure.put(currentKey, new Pair<String, String>(currentValue1, currentValue2));
-                        System.out.println("Added " + currentKey + " with values " + currentValue1 + " and " + currentValue2);
-                    }
-                }
-
-                
+                } 
             }
 
+            for (int i = 0; i < instructions.size(); ++i) {
+                res++;
 
+                if (instructions.get(i).equals("L"))
+                    currentPosition = networkStructure.get(currentPosition).getKey();
+
+                else if (instructions.get(i).equals("R"))
+                    currentPosition = networkStructure.get(currentPosition).getValue();                
+
+                if (currentPosition.equals(destination))
+                    break;
+
+                if (i == instructions.size() - 1)
+                    i = -1;
+            }
 
             myReader.close();
             System.out.println("Result: " + res);
