@@ -45,7 +45,7 @@ public class Solution {
             String currentValue1 = "";
             String currentValue2 = "";
 
-            List<String> instructions = new ArrayList<String>(); // Specify the type parameter
+            List<String> instructions = new ArrayList<String>();
 
             if (myReader.hasNextLine()) {
                 data = myReader.nextLine();
