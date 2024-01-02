@@ -93,9 +93,5 @@ public class Solution {
             System.err.println("Was not able to locate the input file.");
             e.printStackTrace();
         }
-        catch (AssertionError ae) {
-            System.err.println("Assertion error: something went wrong while collecting input data!");
-            ae.printStackTrace();
-        }
     }
 }
