@@ -2,12 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import javafx.util.*;
 
 
 public class Solution {
@@ -28,35 +25,24 @@ public class Solution {
         return true;
     }
 
+    /**
+     * Calculates the next value in the sequence based on the given input sequence
+     *
+     * @param sequence the input sequence
+     * @return the next value in the sequence
+     */
     public static int getNextValue(List<Integer> sequence) {
-        List<Integer> currentSequence = sequence;
-
-        List<List<Integer>> allSequences = new ArrayList<List<Integer>>();
-        allElementsAreZero(currentSequence);
-
+        List<Integer> currentSequence = sequence;        
         int sum = 0;
 
         while (!allElementsAreZero(currentSequence)) {
 
             List<Integer> newSequance = new ArrayList<Integer>();
-            for (int i = 1; i < currentSequence.size(); i++) {
+            for (int i = 1; i < currentSequence.size(); i++)
                 newSequance.add(currentSequence.get(i) - currentSequence.get(i - 1));
 
-            }
-            allSequences.add(newSequance);
-
             currentSequence = newSequance;
-
             sum += currentSequence.get(currentSequence.size() - 1);
-        }
-
-        // print allSequences
-        System.out.println("All sequences: ");
-        for (List<Integer> seq : allSequences) {
-            for (int s : seq) {
-                System.out.print(s + " ");
-            }
-            System.out.println();
         }
 
         return sequence.get(sequence.size() - 1) + sum;
@@ -64,6 +50,20 @@ public class Solution {
 
 
     /**
+     * In the above dataset, the first history is 0 3 6 9 12 15. Because the values increase by 3 each step, the first sequence of differences that you generate will be 3 3 3 3 3. Note that this sequence has one fewer value than the input sequence because at each step it considers two numbers from the input. Since these values aren't all zero, repeat the process: the values differ by 0 at each step, so the next sequence is 0 0 0 0. This means you have enough information to extrapolate the history! Visually, these sequences can be arranged like this:
+     * 
+     * Based on the given sequences, calculates and sum all the next value in each sequence.
+     * Example: 
+     * Given the sequence "0 3 6 9 12 15" it must calculate first each differences between each element:
+     *                      3 3 3 3  3
+     * Then, if the differences are still not all zero, keep going:
+     *                       0 0 0 0
+     * When they are all zero, the next value in the sequence is the last element of the original sequence
+     *  plus the sum of the last differences sequence:
+     *   0 + 3 + 15 = 18
+     * 
+     * So the next value in the sequence is 18.
+     * 
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
