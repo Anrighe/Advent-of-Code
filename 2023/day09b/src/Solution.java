@@ -35,31 +35,62 @@ public class Solution {
         allElementsAreZero(currentSequence);
 
         int sum = 0;
+        boolean negative = true;
 
         while (!allElementsAreZero(currentSequence)) {
 
-            List<Integer> newSequance = new ArrayList<Integer>();
+            List<Integer> newSequence = new ArrayList<Integer>();
             for (int i = 1; i < currentSequence.size(); i++) {
-                newSequance.add(currentSequence.get(i) - currentSequence.get(i - 1));
-
+                newSequence.add(currentSequence.get(i) - currentSequence.get(i - 1));
             }
-            allSequences.add(newSequance);
+            allSequences.add(newSequence);
+            currentSequence = newSequence;
+        }
 
-            currentSequence = newSequance;
+        // After all the sequences have been calculated, we need to iterate backwards and find from the sequence with only zeroes
+        // the first element of the first sequence by subtracting each time
 
-            sum += currentSequence.get(currentSequence.size() - 1);
+        System.out.print("Seqence: ");
+        for (var a : sequence) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
+
+
+
+        for (int i = allSequences.size() - 1; i >= 0; i--) {
+            
+            List<Integer> seq = allSequences.get(i);
+
+            System.out.print("Seqence: ");
+            for (var a : seq) {
+                System.out.print(a + " ");
+            }
+            System.out.println();
+            
+            
+            System.out.println(seq.get(0) + " - " + sum + " = " + (seq.get(0) - sum));
+            sum = seq.get(0) - sum;
         }
 
         // print allSequences
+        /*
         System.out.println("All sequences: ");
         for (List<Integer> seq : allSequences) {
             for (int s : seq) {
                 System.out.print(s + " ");
             }
             System.out.println();
-        }
+        } */
+        System.out.println("-------------");
 
-        return sequence.get(sequence.size() - 1) + sum;
+
+
+        System.out.println("Sum: " + sum);
+        
+        return sum;
+
+
     }
 
 
