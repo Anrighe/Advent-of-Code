@@ -37,11 +37,11 @@ public class Solution {
 
         while (!allElementsAreZero(currentSequence)) {
 
-            List<Integer> newSequance = new ArrayList<Integer>();
+            List<Integer> newSequence = new ArrayList<Integer>();
             for (int i = 1; i < currentSequence.size(); i++)
-                newSequance.add(currentSequence.get(i) - currentSequence.get(i - 1));
+                newSequence.add(currentSequence.get(i) - currentSequence.get(i - 1));
 
-            currentSequence = newSequance;
+            currentSequence = newSequence;
             sum += currentSequence.get(currentSequence.size() - 1);
         }
 
