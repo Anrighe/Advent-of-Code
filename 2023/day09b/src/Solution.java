@@ -17,11 +17,9 @@ public class Solution {
      */
     private static boolean allElementsAreZero(List<Integer> sequence) {
         for (int s : sequence) {
-            if (s != 0) {
+            if (s != 0)
                 return false;
-            }
         }
-
         return true;
     }
 
@@ -33,10 +31,8 @@ public class Solution {
      */
     public static int getNextValue(List<Integer> sequence) {
         List<Integer> currentSequence = sequence;
-
         List<List<Integer>> allSequences = new ArrayList<List<Integer>>();
         allElementsAreZero(currentSequence);
-
         int first = 0;
 
         while (!allElementsAreZero(currentSequence)) {
@@ -55,13 +51,11 @@ public class Solution {
             List<Integer> seq = allSequences.get(i);
             first = seq.get(0) - first;
         }
-
         return sequence.get(0) - first;
     }
 
 
     /**
-     * 
      * Based on the given sequences, calculates and sum all the next value in each sequence.
      * Example: 
      * Given the sequence "0 3 6 9 12 15" it must calculate first each differences between each element:
@@ -89,7 +83,6 @@ public class Solution {
             Scanner myReader = new Scanner(myObj);
 
             while (myReader.hasNextLine()) {
-
                 var stringSequence = myReader.nextLine().split(" ");
                 res += getNextValue(Arrays.stream(stringSequence).map(Integer::parseInt).collect(Collectors.toList()));
             }
