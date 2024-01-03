@@ -50,8 +50,6 @@ public class Solution {
 
 
     /**
-     * In the above dataset, the first history is 0 3 6 9 12 15. Because the values increase by 3 each step, the first sequence of differences that you generate will be 3 3 3 3 3. Note that this sequence has one fewer value than the input sequence because at each step it considers two numbers from the input. Since these values aren't all zero, repeat the process: the values differ by 0 at each step, so the next sequence is 0 0 0 0. This means you have enough information to extrapolate the history! Visually, these sequences can be arranged like this:
-     * 
      * Based on the given sequences, calculates and sum all the next value in each sequence.
      * Example: 
      * Given the sequence "0 3 6 9 12 15" it must calculate first each differences between each element:
