@@ -5,9 +5,37 @@ import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javafx.util.Pair;
 
 
 public class Solution {
+
+    public static Pair<Integer, Integer> getNextPosition(char[][] field, Pair<Integer, Integer> currentPosition) {
+        
+        // Move up case
+        if (field[currentPosition.getKey()][currentPosition.getValue()] == '|' || 
+            field[currentPosition.getKey()][currentPosition.getValue()] == 'S' ||
+            field[currentPosition.getKey()][currentPosition.getValue()] == 'L' ||
+            field[currentPosition.getKey()][currentPosition.getValue()] == 'J') {
+            
+            if (currentPosition.getKey() < field.length - 1 && currentPosition.getKey() >= 0) {
+                if (field[currentPosition.getKey() + 1][currentPosition.getValue()] == '|' ||
+                    field[currentPosition.getKey() + 1][currentPosition.getValue()] == '7' ||
+                    field[currentPosition.getKey() + 1][currentPosition.getValue()] == 'F') {
+                    return new Pair<Integer, Integer>(currentPosition.getKey() + 1, currentPosition.getValue());
+                }
+            }
+        }
+        else if () //TODO - add more cases
+
+        
+        
+        
+        
+        
+        
+        return new Pair<Integer, Integer>(0, 0);
+    }
 
     public static int getInputRows(String inputFile) throws FileNotFoundException {
         File myObj = new File(inputFile);
@@ -47,6 +75,8 @@ public class Solution {
 
         String inputFile = "input.txt";
         int currentLine = 0;
+        int currentRow = 0;
+        int currentCol = 0;
 
         int startRow = -1;
         int startCol = -1;
@@ -78,6 +108,20 @@ public class Solution {
 
             System.out.println("Start row: " + startRow);
             System.out.println("Start col: " + startCol);
+
+            List<Pair<Integer, Integer>> visited = new ArrayList<Pair<Integer, Integer>>();
+
+            Pair <Integer, Integer> currentPos = new Pair<Integer, Integer>(startRow, startCol);
+
+            visited.add(new Pair<Integer, Integer>(startRow, startCol));
+
+            currentPos = getNextPosition(field, currentPos);
+
+            while (field[currentRow][currentCol] != 'S') {
+
+            }
+
+
 
             myReader.close();
             System.out.println(String.format("Result: %d", res));
