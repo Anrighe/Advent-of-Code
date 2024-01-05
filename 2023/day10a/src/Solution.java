@@ -10,31 +10,119 @@ import javafx.util.Pair;
 
 public class Solution {
 
-    public static Pair<Integer, Integer> getNextPosition(char[][] field, Pair<Integer, Integer> currentPosition) {
+    public static Pair<Integer, Integer> getNextPosition(char[][] field, Pair<Integer, Integer> currentPosition, List<Pair<Integer, Integer>> visited) {
         
+        //System.out.println("ENTRO");
+        int row = currentPosition.getKey();
+        int col = currentPosition.getValue();
+
         // Move up case
-        if (field[currentPosition.getKey()][currentPosition.getValue()] == '|' || 
-            field[currentPosition.getKey()][currentPosition.getValue()] == 'S' ||
-            field[currentPosition.getKey()][currentPosition.getValue()] == 'L' ||
-            field[currentPosition.getKey()][currentPosition.getValue()] == 'J') {
-            
-            if (currentPosition.getKey() < field.length - 1 && currentPosition.getKey() >= 0) {
-                if (field[currentPosition.getKey() + 1][currentPosition.getValue()] == '|' ||
-                    field[currentPosition.getKey() + 1][currentPosition.getValue()] == '7' ||
-                    field[currentPosition.getKey() + 1][currentPosition.getValue()] == 'F') {
-                    return new Pair<Integer, Integer>(currentPosition.getKey() + 1, currentPosition.getValue());
+        if (field[row][col] == '|' || 
+            field[row][col] == 'L' ||
+            field[row][col] == 'J' ||
+            field[row][col] == 'S') {
+            if (row <= field.length -1 && row >= 1) {
+                if (field[row - 1][col] == '|' ||
+                    field[row - 1][col] == '7' ||
+                    field[row - 1][col] == 'F') {
+                        if (!visited.contains(new Pair<Integer, Integer> (row - 1, col))) {
+                            return new Pair<Integer, Integer> (row - 1, col);
+                        }
                 }
             }
         }
-        else if () //TODO - add more cases
+        // Move down case
+        if (field[row][col] == '|' ||
+            field[row][col] == '7' || 
+            field[row][col] == 'F' ||
+            field[row][col] == 'S') {
+            if (row >= 0 && row <= field.length - 2) {
+                if (field[row + 1][col] == '|' ||
+                    field[row + 1][col] == 'L' ||
+                    field[row + 1][col] == 'J') {
+                        if (!visited.contains(new Pair<Integer, Integer> (row + 1, col))) {
+                            return new Pair<Integer, Integer> (row + 1, col);
+                        }
+                }
+            }
+        }
+        // Move left case
+        if (field[row][col] == '-' ||
+            field[row][col] == 'J' ||
+            field[row][col] == '7' ||
+            field[row][col] == 'S') {
+            if (col >= 1 && col <= field[0].length - 1) {
+                if (field[row][col - 1] == '-' ||
+                    field[row][col - 1] == 'L' ||
+                    field[row][col - 1] == 'F') {
+                        if (!visited.contains(new Pair<Integer, Integer> (row, col - 1))) {
+                            return new Pair<Integer, Integer> (row, col - 1);
+                        }
+                }
+            }
+        }
+        // Move right case
+        if (field[row][col] == '-' ||
+            field[row][col] == 'L' ||
+            field[row][col] == 'F' ||
+            field[row][col] == 'S') {
+            if (col >= 0 && col <= field[0].length - 2) {
+                if (field[row][col + 1] == '-' ||
+                    field[row][col + 1] == 'J' ||
+                    field[row][col + 1] == '7') {
+                        if (!visited.contains(new Pair<Integer, Integer> (row, col + 1))) {
+                            return new Pair<Integer, Integer> (row, col + 1);
+                        }
+                }
+            }
+        }
+        
+        /*
+        // S case- move up
+        if (field[row][col] == 'S') {
+            if (row <= field.length -1 && row >= 1) {
+                if (field[row - 1][col] == '|' ||
+                    field[row - 1][col] == '7' ||
+                    field[row - 1][col] == 'F') {
+                        
+                    return new Pair<Integer, Integer> (row - 1, col);
+                }
+            }
+        }
+        // S case- move down
+        if (field[row][col] == 'S') {
+            if (row >= 0 && row <= field.length - 2) {
+                if (field[row + 1][col] == '|' ||
+                    field[row + 1][col] == 'L' ||
+                    field[row + 1][col] == 'J') {
+                    return new Pair<Integer, Integer> (row + 1, col);
+                }
+            }
+        }
+        // S case- move left
+        if (field[row][col] == 'S') {
+            if (col >= 1 && col <= field[0].length - 1) {
+                if (field[row][col - 1] == '-' ||
+                    field[row][col - 1] == 'L' ||
+                    field[row][col - 1] == 'F') {
+                    return new Pair<Integer, Integer> (row, col - 1);
+                }
+            }
+        }
+        // S case- move right
+        if (field[row][col] == 'S') {
+            if (col >= 0 && col < field[0].length - 2) {
+                if (field[row][col + 1] == '-' ||
+                    field[row][col + 1] == 'J' ||
+                    field[row][col + 1] == '7') {
+                    return new Pair<Integer, Integer> (row, col + 1);
+                }
+            }
+        }*/
 
-        
-        
-        
-        
-        
-        
-        return new Pair<Integer, Integer>(0, 0);
+
+
+        return new Pair<Integer, Integer>(-1, -1);
     }
 
     public static int getInputRows(String inputFile) throws FileNotFoundException {
@@ -115,16 +203,33 @@ public class Solution {
 
             visited.add(new Pair<Integer, Integer>(startRow, startCol));
 
-            currentPos = getNextPosition(field, currentPos);
+            
+            
+
+            Pair <Integer, Integer> nextPos;
 
             while (field[currentRow][currentCol] != 'S') {
+                res++;
+                nextPos = getNextPosition(field, currentPos, visited);
+                //System.out.println("Current pos: (" + currentPos.getKey() + ", " + currentPos.getValue() + ")");
+                //System.out.println("Next pos: (" + nextPos.getKey() + ", " + nextPos.getValue() + ")");
 
+                if (nextPos.getKey() == -1 && nextPos.getValue() == -1) {
+                    break;
+                }   
+
+                if (!visited.contains(nextPos)) {
+                    visited.add(nextPos);
+                    currentPos = nextPos;
+                }
             }
 
 
+            // Assumption:
+            // The loop total length is an even number
 
             myReader.close();
-            System.out.println(String.format("Result: %d", res));
+            System.out.println(String.format("Result: %d", res/2));
         }
         catch (FileNotFoundException e) {
             System.err.println("Was not able to locate the input file.");
