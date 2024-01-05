@@ -1,9 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javafx.util.Pair;
 
