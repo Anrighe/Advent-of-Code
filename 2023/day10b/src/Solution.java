@@ -190,49 +190,31 @@ public class Solution {
             visited.add(new Pair<Integer, Integer>(startRow, startCol));
             Pair <Integer, Integer> nextPos;
 
-            try {
 
-                File file = new File("coords.txt");           
-                if (file.exists())
-                    file.delete();
-                file.createNewFile();    
-                FileWriter writer = new FileWriter("coords.txt", true);
                 
-                while (true) {
+            while (true) {     
+                res++;
+                nextPos = getNextPosition(field, currentPos, visited);
+                System.out.println("Next pos: (" + nextPos.getKey() + ", " + nextPos.getValue() + ")");
+
                     
-                try {
+                if (nextPos.getKey() == -1 && nextPos.getValue() == -1) {
                     
-                    
-                    
-                    res++;
-                    nextPos = getNextPosition(field, currentPos, visited);
-                    //System.out.println("Next pos: (" + nextPos.getKey() + ", " + nextPos.getValue() + ")");
-                    //System.out.println(nextPos.getKey() + " " + nextPos.getValue());
-                    
-                    if (nextPos.getKey() == -1 && nextPos.getValue() == -1) {
-                        
-                        break;
-                    }
-                    else
-                        writer.write(nextPos.getKey() + " " + nextPos.getValue() + "\n");   
-                        
-                        if (!visited.contains(nextPos)) {
-                            visited.add(nextPos);
-                            currentPos = nextPos;
-                        }
-                } 
-                catch (Exception e) 
-                {
-                    e.printStackTrace();
+                    break;
                 }
+            } 
+
+
+            //TODO: implement a virus-recursive algorithm to find all the cells of the matrix not contained in the loop
+            // Explanation: the virus expands in all directions until it reaches a cell
+            // that is already part of the loop. The virus then doesn't advance to that cell.
+            // once there is no more recursion to be done, all the cells that are not part of the loop are visited
+            // Then just take the total amount of cells in the matix, subtract the contagious cells and subtract again the
+            // cells that are part of the loop. 
+            // The result is the number of cells that are contained in the loop.
                 
-            }
-            writer.close();
-            }
-            catch (Exception e) 
-            {
-                e.printStackTrace();
-            }
+
+
 
             // !!! Assumption !!!
             // The loop total length is an even number
