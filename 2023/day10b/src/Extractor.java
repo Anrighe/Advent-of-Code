@@ -9,7 +9,7 @@ import java.util.List;
 import javafx.util.Pair;
 
 
-public class Solution {
+public class Extractor {
 
     /**
      * Returns the next position to move to based on the current position in the field.
