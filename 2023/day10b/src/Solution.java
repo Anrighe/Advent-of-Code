@@ -308,10 +308,9 @@ public class Solution {
                     }
 
                     else {
-                        if (intersection_count % 2 != 0 ) {
-                            System.out.println("Inside loop: (" + i + ", " + j + ")");
+                        // If the number of intersections is odd, then the tile is inside the loop
+                        if (intersection_count % 2 != 0 )
                             res++;
-                        }
                     }
                 }        
             }            
