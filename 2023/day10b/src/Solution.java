@@ -1,13 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javafx.util.Pair;
-import java.lang.Math;
 
 public class Solution {
 
@@ -156,6 +152,26 @@ public class Solution {
      *      .....
      * In this case, the furthest distance is 4.
      * 
+     * --------------------------------------------------------------------------
+     * 
+     * In the second part of the problem it's required to find the number of tiles contained in the loop.
+     * One way to do this is by using ray casting: https://en.wikipedia.org/wiki/Point_in_polygon
+     * 
+     * If a line is drawn, if the number of intersections with the loop (our polygon) is odd, the tile is inside the loop.
+     * If the number of intersections with the loop is even, the tile is outside the loop.
+     * 
+     * To measure the number of intersection we must first find the corresponding tile for the starting point "S".
+     * In order to do so, we calculate the first and last move of the loop and thanks to that we match the movements to find
+     * the corresponding tile, which will be substituted to the "S" tile.
+     * 
+     * Then, we iterate through the field and count the numbers of intersections encountered, by using the following rules:
+     * - If the '|' tile is encountered, it counts as ONE intersection
+     * - If the 'L' and 'J' tile are encountered with an arbitrary number of '-' in the middle, it counts as TWO intersection (e.g.: L---J)
+     * - If the 'F' and '7' tile are encountered with an arbitrary number of '-' in the middle, it counts as TWO intersection
+     * - If the 'L' and '7' tile are encountered with an arbitrary number of '-' in the middle, it counts as ONE intersection
+     * - If the 'F' and 'J' tile are encountered with an arbitrary number of '-' in the middle, it counts as ONE intersection
+     * - The tile '-' is ignored 
+     * 
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
@@ -184,122 +200,66 @@ public class Solution {
                 }
                 currentLine++;
             }
+            myReader.close();
 
             List<Pair<Integer, Integer>> visited = new ArrayList<Pair<Integer, Integer>>();
             Pair <Integer, Integer> currentPos = new Pair<Integer, Integer>(startRow, startCol);
             visited.add(new Pair<Integer, Integer>(startRow, startCol));
             Pair <Integer, Integer> nextPos;
 
-
             while (true) {     
-                
                 nextPos = getNextPosition(field, currentPos, visited);
-                //System.out.println("Next pos: (" + nextPos.getKey() + ", " + nextPos.getValue() + ")");
                     
-                if (nextPos.getKey() == -1 && nextPos.getValue() == -1) {
-                    
+                if (nextPos.getKey() == -1 && nextPos.getValue() == -1)
                     break;
-                }
 
                 if (!visited.contains(nextPos)) {
                     visited.add(nextPos);
                     currentPos = nextPos;
                 }
             } 
-
-            // Checking whether a tile is inside or outside the loop by using ray casting
-            // https://en.wikipedia.org/wiki/Point_in_polygon
-            // If the number of intersections is odd, the tile is inside the loop
-            // If the number of intersections is even, the tile is outside the loop
-
-            boolean found_first = false;
-            boolean found_second = false;
+            
             int intersection_count = 0;    
-            char first = '0';
-            char second = '0';
-            int first_position = -1;
-            int second_position = -1;
-
-            //TODO: attualmente non funziona perché controlla la riga e sceglie il first e il second
-            // in base a quando trova una tile che non fa parte del loop.
-            // bisogna fare in modo che ogni volta che ci sia un cambio di direzione (o una S?)
-            // vada ad assegnare first e second (ignorare i '-' ?)
-            // i '|' devono comunque essere considerati come un intersezione
-
-            // attualmente in parti del loop vicine, considera la prima tile come first e 
-            // l'ultima come second:
-            // esempio: F7FJ|L7L7L7
-            // first: F
-            // second: 7
-            // quando in realtà dovrebbe separarle in questo modo:
-            // F7 ~ FJ ~ | L7 ~ L7 L7
-            // 
-            // Allo stesso tempo è necessario considerare che se ci sono più tile consecutive
-            // che fanno parte del loop, e in questo caso:
-            // F---7||L---7FJ dovrà essere considerato come (gruppi da 2 intersezioni)
-            // F---7 ~ || ~ L---7 FJ
-
             
             // Replacing 'S' in field with the appropriate tile:
-
             int firstMoveRow = visited.get(1).getKey();
             int firstMoveCol = visited.get(1).getValue();
 
             int lastMoveRow = visited.get(visited.size() - 1).getKey();
             int lastMoveCol = visited.get(visited.size() - 1).getValue();
 
-
-            
             int firstRowMovement = firstMoveRow - startRow;
             int firstColMovement = firstMoveCol - startCol;
             
             int lastRowMovement = lastMoveRow - startRow;
             int lastColMovement = lastMoveCol - startCol;
-
-            System.out.println("statRow: " + startRow + " startCol: " + startCol);
-            System.out.println("firstMoveRow: " + firstMoveRow + " firstMoveCol: " + firstMoveCol);
-            System.out.println("lastMoveRow: " + lastMoveRow + " lastMoveCol: " + lastMoveCol);
-
-            System.out.println("first step --> row: " + (firstRowMovement) + ", col: " + (firstColMovement));
-            System.out.println("last step --> row: " + (lastRowMovement) + ", col: " + (lastColMovement));
             
             // F
             if (firstRowMovement == 1 && firstColMovement == 0 && lastRowMovement == 0 && lastColMovement == 1 ||
-                firstRowMovement == 0 && firstColMovement == 1 && lastRowMovement == 1 && lastColMovement == 0) {
+                firstRowMovement == 0 && firstColMovement == 1 && lastRowMovement == 1 && lastColMovement == 0)
                 field[startRow][startCol] = 'F';
-            }
             // |
             else if (firstRowMovement == -1 && firstColMovement == 0 && lastRowMovement == 1 && firstColMovement == 0 ||
-                     firstRowMovement == 1 && firstColMovement == 0 && lastRowMovement == -1 && firstColMovement == 0) {
+                     firstRowMovement == 1 && firstColMovement == 0 && lastRowMovement == -1 && firstColMovement == 0)
                 field[startRow][startCol] = '|';
-
-            }
             // -
             else if (firstRowMovement == 0 && firstColMovement == -1 && lastRowMovement == 0 && lastColMovement == 1 ||
-                     firstRowMovement == 0 && firstColMovement == 1 && lastRowMovement == 0 && lastColMovement == -1) {
+                     firstRowMovement == 0 && firstColMovement == 1 && lastRowMovement == 0 && lastColMovement == -1)
                 field[startRow][startCol] = '-';
-            }
             // L
             else if (firstRowMovement == -1 && firstColMovement == 0 && lastRowMovement == 0 && lastColMovement == 1 ||
-                     firstRowMovement == 0 && firstColMovement == 1 && lastRowMovement == -1 && lastColMovement == 0) {
+                     firstRowMovement == 0 && firstColMovement == 1 && lastRowMovement == -1 && lastColMovement == 0)
                 field[startRow][startCol] = 'L';
-            }
             // J
             else if (firstRowMovement == -1 && firstColMovement == 0 && lastRowMovement == 0 && lastColMovement == -1 ||
-                     firstRowMovement == 0 && firstColMovement == -1 && lastRowMovement == -1 && lastColMovement == 0) {
+                     firstRowMovement == 0 && firstColMovement == -1 && lastRowMovement == -1 && lastColMovement == 0)
                 field[startRow][startCol] = 'J';
-            }
             // 7
             else if (firstRowMovement == 1 && firstColMovement == 0 && lastRowMovement == 0 && lastColMovement == -1 ||
-                     firstRowMovement == 0 && firstColMovement == -1 && lastRowMovement == 1 && lastColMovement == 0) {
+                     firstRowMovement == 0 && firstColMovement == -1 && lastRowMovement == 1 && lastColMovement == 0)
                 field[startRow][startCol] = '7';
-            }
-            else {
-                new Exception("Error: first and last move are not compatible");
-
-            }
-
-            System.out.println("new field start: " + field[startRow][startCol] + " (" + startRow + ", " + startCol + ")");
+            else
+                throw new Exception("Error: first and last move are not compatible");
 
 
             String buffer = "";
@@ -311,11 +271,11 @@ public class Solution {
                 for (int j = 0; j < field[i].length; ++j) {
 
                     if (visited.contains(new Pair<Integer, Integer>(i, j))) {
-                        
+
                         if (field[i][j] != '-') {
 
                             buffer += field[i][j];
-                            
+                        
                             switch (buffer) {
                                 case "LJ": 
                                     intersection_count += 2;
@@ -343,7 +303,6 @@ public class Solution {
     
                                 default:
                                     break;
-                                
                             }
                         }
                     }
@@ -354,10 +313,7 @@ public class Solution {
                             res++;
                         }
                     }
-
                 }        
-                    
-
             }            
 
 
@@ -369,6 +325,9 @@ public class Solution {
         }
         catch (FileNotFoundException e) {
             System.err.println("Was not able to locate the input file.");
+            e.printStackTrace();
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
