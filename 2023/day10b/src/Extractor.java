@@ -2,9 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javafx.util.Pair;
 
@@ -128,6 +126,10 @@ public class Extractor {
     }
 
     /**
+     * 
+     * Saves to a file the coordinates of the path from the starting point to the furthest point inside the loop for this problem:
+     * 
+     * --------------------------------------------------------------------------------------------------
      * From a starting point "S", finds the loop path and returns the furthest point inside the loop from 
      * the starting point.
      * 
@@ -159,7 +161,7 @@ public class Extractor {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        int res = 0;
+
 
         String inputFile = "input.txt";
         int currentLine = 0;
@@ -190,9 +192,9 @@ public class Extractor {
             visited.add(new Pair<Integer, Integer>(startRow, startCol));
             Pair <Integer, Integer> nextPos;
 
+            String filename = "coords.txt";
             try {
-
-                File file = new File("coords.txt");           
+                File file = new File(filename);           
                 if (file.exists())
                     file.delete();
                 file.createNewFile();    
@@ -200,45 +202,31 @@ public class Extractor {
                 
                 while (true) {
                     
-                try {
-                    
-                    
-                    
-                    res++;
-                    nextPos = getNextPosition(field, currentPos, visited);
-                    //System.out.println("Next pos: (" + nextPos.getKey() + ", " + nextPos.getValue() + ")");
-                    //System.out.println(nextPos.getKey() + " " + nextPos.getValue());
-                    
-                    if (nextPos.getKey() == -1 && nextPos.getValue() == -1) {
-                        
-                        break;
+                    try {
+                        nextPos = getNextPosition(field, currentPos, visited);
+
+                        if (nextPos.getKey() == -1 && nextPos.getValue() == -1)
+                            break;
+                        else
+                            writer.write(nextPos.getKey() + " " + nextPos.getValue() + "\n");   
+                            
+                            if (!visited.contains(nextPos)) {
+                                visited.add(nextPos);
+                                currentPos = nextPos;
+                            }
+                    } 
+                    catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    else
-                        writer.write(nextPos.getKey() + " " + nextPos.getValue() + "\n");   
-                        
-                        if (!visited.contains(nextPos)) {
-                            visited.add(nextPos);
-                            currentPos = nextPos;
-                        }
-                } 
-                catch (Exception e) 
-                {
-                    e.printStackTrace();
                 }
-                
+                writer.close();
             }
-            writer.close();
-            }
-            catch (Exception e) 
-            {
+            catch (Exception e) {
                 e.printStackTrace();
             }
 
-            // !!! Assumption !!!
-            // The loop total length is an even number
-
             myReader.close();
-            System.out.println(String.format("Result: %d", res/2));
+            System.out.println("Coordiantes successfully saved to " + filename);
         }
         catch (FileNotFoundException e) {
             System.err.println("Was not able to locate the input file.");
