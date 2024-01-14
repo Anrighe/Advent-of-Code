@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.util.Pair;
-
+import java.lang.Math;
 
 public class Solution {
 
@@ -191,12 +191,10 @@ public class Solution {
             Pair <Integer, Integer> nextPos;
 
 
-                
             while (true) {     
                 
                 nextPos = getNextPosition(field, currentPos, visited);
                 //System.out.println("Next pos: (" + nextPos.getKey() + ", " + nextPos.getValue() + ")");
-
                     
                 if (nextPos.getKey() == -1 && nextPos.getValue() == -1) {
                     
@@ -221,7 +219,91 @@ public class Solution {
             char second = '0';
             int first_position = -1;
             int second_position = -1;
+
+            //TODO: attualmente non funziona perché controlla la riga e sceglie il first e il second
+            // in base a quando trova una tile che non fa parte del loop.
+            // bisogna fare in modo che ogni volta che ci sia un cambio di direzione (o una S?)
+            // vada ad assegnare first e second (ignorare i '-' ?)
+            // i '|' devono comunque essere considerati come un intersezione
+
+            // attualmente in parti del loop vicine, considera la prima tile come first e 
+            // l'ultima come second:
+            // esempio: F7FJ|L7L7L7
+            // first: F
+            // second: 7
+            // quando in realtà dovrebbe separarle in questo modo:
+            // F7 ~ FJ ~ | L7 ~ L7 L7
+            // 
+            // Allo stesso tempo è necessario considerare che se ci sono più tile consecutive
+            // che fanno parte del loop, e in questo caso:
+            // F---7||L---7FJ dovrà essere considerato come (gruppi da 2 intersezioni)
+            // F---7 ~ || ~ L---7 FJ
+
             
+            // Replacing 'S' in field with the appropriate tile:
+
+            int firstMoveRow = visited.get(1).getKey();
+            int firstMoveCol = visited.get(1).getValue();
+
+            int lastMoveRow = visited.get(visited.size() - 1).getKey();
+            int lastMoveCol = visited.get(visited.size() - 1).getValue();
+
+
+            
+            int firstRowMovement = firstMoveRow - startRow;
+            int firstColMovement = firstMoveCol - startCol;
+            
+            int lastRowMovement = lastMoveRow - startRow;
+            int lastColMovement = lastMoveCol - startCol;
+
+            System.out.println("statRow: " + startRow + " startCol: " + startCol);
+            System.out.println("firstMoveRow: " + firstMoveRow + " firstMoveCol: " + firstMoveCol);
+            System.out.println("lastMoveRow: " + lastMoveRow + " lastMoveCol: " + lastMoveCol);
+
+            System.out.println("first step --> row: " + (firstRowMovement) + ", col: " + (firstColMovement));
+            System.out.println("last step --> row: " + (lastRowMovement) + ", col: " + (lastColMovement));
+            
+            // F
+            if (firstRowMovement == 1 && firstColMovement == 0 && lastRowMovement == 0 && lastColMovement == 1 ||
+                firstRowMovement == 0 && firstColMovement == 1 && lastRowMovement == 1 && lastColMovement == 0) {
+                field[startRow][startCol] = 'F';
+            }
+            // |
+            else if (firstRowMovement == -1 && firstColMovement == 0 && lastRowMovement == 1 && firstColMovement == 0 ||
+                     firstRowMovement == 1 && firstColMovement == 0 && lastRowMovement == -1 && firstColMovement == 0) {
+                field[startRow][startCol] = '|';
+
+            }
+            // -
+            else if (firstRowMovement == 0 && firstColMovement == -1 && lastRowMovement == 0 && lastColMovement == 1 ||
+                     firstRowMovement == 0 && firstColMovement == 1 && lastRowMovement == 0 && lastColMovement == -1) {
+                field[startRow][startCol] = '-';
+            }
+            // L
+            else if (firstRowMovement == -1 && firstColMovement == 0 && lastRowMovement == 0 && lastColMovement == 1 ||
+                     firstRowMovement == 0 && firstColMovement == 1 && lastRowMovement == -1 && lastColMovement == 0) {
+                field[startRow][startCol] = 'L';
+            }
+            // J
+            else if (firstRowMovement == -1 && firstColMovement == 0 && lastRowMovement == 0 && lastColMovement == -1 ||
+                     firstRowMovement == 0 && firstColMovement == -1 && lastRowMovement == -1 && lastColMovement == 0) {
+                field[startRow][startCol] = 'J';
+            }
+            // 7
+            else if (firstRowMovement == 1 && firstColMovement == 0 && lastRowMovement == 0 && lastColMovement == -1 ||
+                     firstRowMovement == 0 && firstColMovement == -1 && lastRowMovement == 1 && lastColMovement == 0) {
+                field[startRow][startCol] = '7';
+            }
+            else {
+                new Exception("Error: first and last move are not compatible");
+
+            }
+
+            System.out.println("new field start: " + field[startRow][startCol] + " (" + startRow + ", " + startCol + ")");
+
+
+            String buffer = "";
+
             for (int i = 0; i < field.length; ++i) {
 
                 intersection_count = 0;
@@ -229,64 +311,54 @@ public class Solution {
                 for (int j = 0; j < field[i].length; ++j) {
 
                     if (visited.contains(new Pair<Integer, Integer>(i, j))) {
-                        if (found_first == false) {
-                            found_first = true;
-                            first = field[i][j];
-                        }
-                        else {
-                            second = field[i][j];
-                            found_second = true;
-                        }
+                        
+                        if (field[i][j] != '-') {
 
-                    }
-                    else {
-                        if (found_first == true && found_second == true) {
-    
-                            if (first == 'L' && second == 'J' || first == 'F' && second == '7' ||
-                                first == 'S' && second == 'J' || first == 'S' && second == '7' ||
-                                first == 'L' && second == 'S' || first == 'F' && second == 'S' ||
-                                first == '|' && second == '|') {
-                                intersection_count += 2;
-                            }
-                            else if (first == 'L' && second == '7' || first == 'F' && second == 'J' ||
-                                     first == 'S' && second == '7' || first == 'S' && second == 'J' ||
-                                     first == 'L' && second == 'S' || first == 'F' && second == 'S') {
-                                intersection_count++;
-                            }
-
-                            found_first = false;
-                            found_second = false;
-                        }
-                        else if (found_first == true && found_second == false) {
-                            intersection_count++;
-                            found_first = false;
-                        }  
+                            buffer += field[i][j];
                             
+                            switch (buffer) {
+                                case "LJ": 
+                                    intersection_count += 2;
+                                    buffer = "";
+                                    break;
+                                case "F7":
+                                    intersection_count += 2;
+                                    buffer = "";
+                                    break;
+        
+                                case "L7":
+                                    intersection_count++;
+                                    buffer = "";
+                                    break;
+        
+                                case "FJ":
+                                    intersection_count++;
+                                    buffer = "";
+                                    break;
+        
+                                case "|":
+                                    intersection_count++;
+                                    buffer = "";
+                                    break;
+    
+                                default:
+                                    break;
+                                
+                            }
+                        }
+                    }
+
+                    else {
                         if (intersection_count % 2 != 0 ) {
                             System.out.println("Inside loop: (" + i + ", " + j + ")");
                             res++;
                         }
-                            
-
                     }
 
-                        
+                }        
                     
-                }
-            }
 
-            // print visited:
-            /* 
-            for (int i = 0; i < visited.size(); ++i) {
-                System.out.println("Visited: (" + visited.get(i).getKey() + ", " + visited.get(i).getValue() + ")");
-            }*/
-        
-            
-
-
-            
-                
-
+            }            
 
 
             // !!! Assumption !!!
