@@ -193,25 +193,98 @@ public class Solution {
 
                 
             while (true) {     
-                res++;
+                
                 nextPos = getNextPosition(field, currentPos, visited);
-                System.out.println("Next pos: (" + nextPos.getKey() + ", " + nextPos.getValue() + ")");
+                //System.out.println("Next pos: (" + nextPos.getKey() + ", " + nextPos.getValue() + ")");
 
                     
                 if (nextPos.getKey() == -1 && nextPos.getValue() == -1) {
                     
                     break;
                 }
+
+                if (!visited.contains(nextPos)) {
+                    visited.add(nextPos);
+                    currentPos = nextPos;
+                }
             } 
 
+            // Checking whether a tile is inside or outside the loop by using ray casting
+            // https://en.wikipedia.org/wiki/Point_in_polygon
+            // If the number of intersections is odd, the tile is inside the loop
+            // If the number of intersections is even, the tile is outside the loop
 
-            //TODO: implement a virus-recursive algorithm to find all the cells of the matrix not contained in the loop
-            // Explanation: the virus expands in all directions until it reaches a cell
-            // that is already part of the loop. The virus then doesn't advance to that cell.
-            // once there is no more recursion to be done, all the cells that are not part of the loop are visited
-            // Then just take the total amount of cells in the matix, subtract the contagious cells and subtract again the
-            // cells that are part of the loop. 
-            // The result is the number of cells that are contained in the loop.
+            boolean found_first = false;
+            boolean found_second = false;
+            int intersection_count = 0;    
+            char first = '0';
+            char second = '0';
+            int first_position = -1;
+            int second_position = -1;
+            
+            for (int i = 0; i < field.length; ++i) {
+
+                intersection_count = 0;
+                
+                for (int j = 0; j < field[i].length; ++j) {
+
+                    if (visited.contains(new Pair<Integer, Integer>(i, j))) {
+                        if (found_first == false) {
+                            found_first = true;
+                            first = field[i][j];
+                        }
+                        else {
+                            second = field[i][j];
+                            found_second = true;
+                        }
+
+                    }
+                    else {
+                        if (found_first == true && found_second == true) {
+    
+                            if (first == 'L' && second == 'J' || first == 'F' && second == '7' ||
+                                first == 'S' && second == 'J' || first == 'S' && second == '7' ||
+                                first == 'L' && second == 'S' || first == 'F' && second == 'S' ||
+                                first == '|' && second == '|') {
+                                intersection_count += 2;
+                            }
+                            else if (first == 'L' && second == '7' || first == 'F' && second == 'J' ||
+                                     first == 'S' && second == '7' || first == 'S' && second == 'J' ||
+                                     first == 'L' && second == 'S' || first == 'F' && second == 'S') {
+                                intersection_count++;
+                            }
+
+                            found_first = false;
+                            found_second = false;
+                        }
+                        else if (found_first == true && found_second == false) {
+                            intersection_count++;
+                            found_first = false;
+                        }  
+                            
+                        if (intersection_count % 2 != 0 ) {
+                            System.out.println("Inside loop: (" + i + ", " + j + ")");
+                            res++;
+                        }
+                            
+
+                    }
+
+                        
+                    
+                }
+            }
+
+            // print visited:
+            /* 
+            for (int i = 0; i < visited.size(); ++i) {
+                System.out.println("Visited: (" + visited.get(i).getKey() + ", " + visited.get(i).getValue() + ")");
+            }*/
+        
+            
+
+
+            
                 
 
 
@@ -220,7 +293,7 @@ public class Solution {
             // The loop total length is an even number
 
             myReader.close();
-            System.out.println(String.format("Result: %d", res/2));
+            System.out.println(String.format("Result: %d", res));
         }
         catch (FileNotFoundException e) {
             System.err.println("Was not able to locate the input file.");
