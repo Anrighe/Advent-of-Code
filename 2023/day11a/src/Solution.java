@@ -9,6 +9,13 @@ import javafx.util.Pair;
 
 public class Solution {
 
+    public static int factorial(int n) {
+        for (int i = n - 1; i > 0; --i) {
+            n *= i;
+        }
+        return n;
+    }
+
 
     /**
      * Adds a set of galaxies to the existing collection.
@@ -18,7 +25,7 @@ public class Solution {
     public static void addGalaxies(Set<Pair<Integer, Integer>> galaxies, String line, int currentLine) {
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == '#') {
-                galaxies.add(new Pair<Integer, Integer>(i, 0));
+                galaxies.add(new Pair<Integer, Integer>(currentLine, i));
             }
         }
     }
@@ -97,35 +104,56 @@ public class Solution {
 
             Set<Pair<Integer, Integer>> galaxies = new HashSet<Pair<Integer, Integer>>();
 
+            Set<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> pairs = new HashSet<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>();
+
             while (myReader.hasNextLine()) {
 
                 String line = myReader.nextLine();
                 addGalaxies(galaxies, line, currentLine);
 
-
-                if (onlyContainDots(line))
+                if (onlyContainDots(line)) {
                     actualSpace.add(line);
+                    currentLine++;
+                }
 
                 actualSpace.add(line);
-
 
                 currentLine++;
             }
 
-            for (var a : actualSpace) {
-                System.out.println(a);
+            for (Pair<Integer, Integer> element : galaxies) {
+                for (Pair<Integer, Integer> element2 : galaxies) {
+                    if (element != element2 && !pairs.contains(new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(element, element2))) {
+                        pairs.add(new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(element, element2));
+                    }
+                }
+            } 
+
+            // Total number of permutation -> P(n,r) = (n!)/((n-r)!)
+            // n: objects (in this case 9)
+            // r: objects taken at a time (in this case 2)          
+            assert (pairs.size() == factorial(galaxies.size()) / factorial(galaxies.size() - 2));
+            
+            /*
+            for (var line : actualSpace) {
+                System.out.println(line);
             }
 
-            for (var element : galaxies) {
+            for (var element : pairs) {
                 System.out.println(element);
-            }   
+            }
+            System.out.println(pairs.size()); */
 
-            //TODO: calculate all Pair permutation between galaxies
-            // Total number of permutation -> P(n,r) = (n!)/((n-r)!)
-            // n: objects 
-            // r: objects taken at a time
+            int rowDistance = 0;
+            int colDistance = 0;
+            for (Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> element : pairs) {
 
-            //TODO: find the shortest path between each pair of galaxies
+
+                rowDistance = Math.abs(element.getKey().getKey() - element.getValue().getKey());
+                colDistance = Math.abs(element.getKey().getValue() - element.getValue().getValue());
+
+                res += rowDistance + colDistance;
+            }
 
 
             myReader.close();
