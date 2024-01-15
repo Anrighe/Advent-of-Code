@@ -105,6 +105,11 @@ public class Solution {
             Set<Pair<Integer, Integer>> galaxies = new HashSet<Pair<Integer, Integer>>();
 
             Set<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> pairs = new HashSet<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>();
+            
+            // TODO: EXPAND ROWS AS WELL
+            // MAYBE PERMUTATE EVERYTHING AND REPEAT THE PROCESS?
+
+            // "columns and rows that contain no galaxies need to be twice as big"
 
             while (myReader.hasNextLine()) {
 
@@ -121,14 +126,6 @@ public class Solution {
                 currentLine++;
             }
 
-            //TODO: FIX ISSUE WITH PAIRS <--- Fixed??
-            // It's now inserting in the pairs set the same pair twice
-            // Example 2=0 and 6=1 , 6=1 and 2=0
-
-            // Think I've fixed but result is still wrong
-            // Actual : 328
-            // Expected : 374 ???
-
 
             for (Pair<Integer, Integer> element : galaxies) {
                 
@@ -144,6 +141,11 @@ public class Solution {
             // n: objects (in this case 9)
             // r: objects taken at a time (in this case 2)          
             assert (pairs.size() == factorial(galaxies.size()) / factorial(galaxies.size() - 2));
+
+            if (pairs.size() == factorial(galaxies.size()) / factorial(galaxies.size() - 2))
+            {
+                System.out.println("ASSERT OKAY");
+            }
             
             /*
             for (var line : actualSpace) {
@@ -152,8 +154,8 @@ public class Solution {
 
             for (var element : pairs) {
                 System.out.println(element);
-            }
-            System.out.println(pairs.size()); */
+            }*/
+            System.out.println(pairs.size());
 
             int rowDistance = 0;
             int colDistance = 0;
