@@ -121,9 +121,20 @@ public class Solution {
                 currentLine++;
             }
 
+            //TODO: FIX ISSUE WITH PAIRS <--- Fixed??
+            // It's now inserting in the pairs set the same pair twice
+            // Example 2=0 and 6=1 , 6=1 and 2=0
+
+            // Think I've fixed but result is still wrong
+            // Actual : 328
+            // Expected : 374 ???
+
+
             for (Pair<Integer, Integer> element : galaxies) {
+                
                 for (Pair<Integer, Integer> element2 : galaxies) {
-                    if (element != element2 && !pairs.contains(new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(element, element2))) {
+                    if (element != element2 && !pairs.contains(new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(element, element2))
+                        && !pairs.contains(new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(element2, element))) {
                         pairs.add(new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(element, element2));
                     }
                 }
@@ -151,6 +162,8 @@ public class Solution {
 
                 rowDistance = Math.abs(element.getKey().getKey() - element.getValue().getKey());
                 colDistance = Math.abs(element.getKey().getValue() - element.getValue().getValue());
+
+                System.out.println("Distance between " + element.getKey() + " and " + element.getValue() + " is " + rowDistance + " + " + colDistance + " = " + (rowDistance + colDistance));
 
                 res += rowDistance + colDistance;
             }
