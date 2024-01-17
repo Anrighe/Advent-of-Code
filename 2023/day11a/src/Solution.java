@@ -9,6 +9,31 @@ import javafx.util.Pair;
 
 public class Solution {
 
+    /**
+     * Transposes a list of strings by swapping rows with columns.
+     * 
+     * @param stringList the list of strings to be transposed
+     * @return the transposed list of strings
+     */
+    public static List<String> transposeStringList(List<String> stringList) throws AssertionError{
+
+        List<String> transposedStringList = new ArrayList<String>();
+        String tmp;
+
+        for (int i = 0; i < stringList.get(0).length(); ++i) {
+            // all strings must have the same length
+            assert (stringList.get(0).length() == stringList.get(i).length()); 
+            tmp = "";
+
+            for (int j = 0; j < stringList.size(); ++j) {
+                tmp += stringList.get(j).charAt(i);
+            }
+            transposedStringList.add(tmp);
+        }
+
+        return transposedStringList;
+    }
+
     public static int factorial(int n) {
         for (int i = n - 1; i > 0; --i) {
             n *= i;
@@ -106,24 +131,63 @@ public class Solution {
 
             Set<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> pairs = new HashSet<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>();
             
+            
+            while (myReader.hasNextLine()) {
+                
+                String line = myReader.nextLine();
+                
+                if (onlyContainDots(line)) {
+                    actualSpace.add(line);
+                    currentLine++;
+                }
+                
+                actualSpace.add(line);
+                
+                currentLine++;
+            }
+
+            System.out.println("After adding rows:");
+            for (String line : actualSpace) {
+                System.out.println(line);
+            }
+            
             // TODO: EXPAND ROWS AS WELL
             // MAYBE PERMUTATE EVERYTHING AND REPEAT THE PROCESS?
 
             // "columns and rows that contain no galaxies need to be twice as big"
 
-            while (myReader.hasNextLine()) {
+            List<String> actualSpaceTransposed = transposeStringList(actualSpace);
 
-                String line = myReader.nextLine();
-                addGalaxies(galaxies, line, currentLine);
+
+            List<String> actualSpaceTransposedTmp = new ArrayList<>();
+
+            for (int i = 0; i < actualSpaceTransposed.size(); ++i) {
+                String line = actualSpaceTransposed.get(i);
+                actualSpaceTransposedTmp.add(line);
 
                 if (onlyContainDots(line)) {
-                    actualSpace.add(line);
-                    currentLine++;
+                    actualSpaceTransposedTmp.add(line);
+
                 }
 
-                actualSpace.add(line);
+            }
 
-                currentLine++;
+            actualSpaceTransposed = actualSpaceTransposedTmp;
+
+            System.out.println("After adding rows AGAIN:");
+            for (String line : actualSpaceTransposed) {
+                System.out.println(line);
+            }
+
+            actualSpace = transposeStringList(actualSpaceTransposed);
+
+            System.out.println("After adding columns:");
+            for (String line : actualSpace) {
+                System.out.println(line);
+            }
+
+            for (String line : actualSpace) {
+                addGalaxies(galaxies, line, currentLine);
             }
 
 
