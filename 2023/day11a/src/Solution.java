@@ -34,8 +34,14 @@ public class Solution {
         return transposedStringList;
     }
 
-    public static int factorial(int n) {
-        for (int i = n - 1; i > 0; --i) {
+    /**
+     * Calculates the factorial of a given number.
+     *
+     * @param n the number for which factorial is to be calculated
+     * @return the factorial of the given number
+     */
+    public static long factorial(long n) {
+        for (long i = n - 1; i > 0; --i) {
             n *= i;
         }
         return n;
@@ -51,6 +57,7 @@ public class Solution {
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == '#') {
                 galaxies.add(new Pair<Integer, Integer>(currentLine, i));
+                System.out.println("Added galaxy at " + currentLine + ", " + i);
             }
         }
     }
@@ -100,7 +107,6 @@ public class Solution {
     public static int getInputCols(String inputFile) throws FileNotFoundException {
         File myObj = new File(inputFile);
         Scanner myReader = new Scanner(myObj);
-
         int cols = 0;
 
         if (myReader.hasNextLine()) {
@@ -111,7 +117,13 @@ public class Solution {
     }
 
     /**
+     * The problem asks us to find the sum of the distance between all pairs of galaxies.
+     * The same pair of galaxies should not be used twice. E.g. (1, 2) and (2, 1) are the same pair.
      * 
+     * Before calcolating the shortest distances between all pairs, the input text must be treated:
+     * 1. The rows that have no galaxies (only contain dots) must be expanded by duplicating them
+     * 2. The columns that have no galaxies must be expanded by transposing the actual space
+     *
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
@@ -121,17 +133,14 @@ public class Solution {
         int currentLine = 0;
 
         try {
-            
             File myObj = new File(inputFile);
             Scanner myReader = new Scanner(myObj);
 
             List<String> actualSpace = new ArrayList<String>();
-
             Set<Pair<Integer, Integer>> galaxies = new HashSet<Pair<Integer, Integer>>();
-
             Set<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> pairs = new HashSet<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>();
             
-            
+            // Reading the input file and adding expanding the rows that have no galaxies (only contain dots)
             while (myReader.hasNextLine()) {
                 
                 String line = myReader.nextLine();
@@ -140,57 +149,36 @@ public class Solution {
                     actualSpace.add(line);
                     currentLine++;
                 }
-                
                 actualSpace.add(line);
-                
                 currentLine++;
             }
 
-            System.out.println("After adding rows:");
-            for (String line : actualSpace) {
-                System.out.println(line);
-            }
-            
-            // TODO: EXPAND ROWS AS WELL
-            // MAYBE PERMUTATE EVERYTHING AND REPEAT THE PROCESS?
-
-            // "columns and rows that contain no galaxies need to be twice as big"
-
+            // Expanding the columns that have no galaxies by transposing the actual space
+            // then duplicating the rows that have no galaxies (only contain dots)
+            // and then transposing again to get the original space
             List<String> actualSpaceTransposed = transposeStringList(actualSpace);
-
-
             List<String> actualSpaceTransposedTmp = new ArrayList<>();
 
             for (int i = 0; i < actualSpaceTransposed.size(); ++i) {
                 String line = actualSpaceTransposed.get(i);
                 actualSpaceTransposedTmp.add(line);
 
-                if (onlyContainDots(line)) {
+                if (onlyContainDots(line))
                     actualSpaceTransposedTmp.add(line);
-
-                }
-
             }
 
             actualSpaceTransposed = actualSpaceTransposedTmp;
-
-            System.out.println("After adding rows AGAIN:");
-            for (String line : actualSpaceTransposed) {
-                System.out.println(line);
-            }
-
             actualSpace = transposeStringList(actualSpaceTransposed);
 
-            System.out.println("After adding columns:");
-            for (String line : actualSpace) {
-                System.out.println(line);
-            }
-
+            // Adding the galaxies to the set
+            currentLine = 0;
             for (String line : actualSpace) {
                 addGalaxies(galaxies, line, currentLine);
+                currentLine++;
             }
 
-
+            // Adding all the possible pairs of galaxies to the set without using the same pair twice
+            // e.g. (1, 2) and (2, 1) are the same pair
             for (Pair<Integer, Integer> element : galaxies) {
                 
                 for (Pair<Integer, Integer> element2 : galaxies) {
@@ -204,36 +192,21 @@ public class Solution {
             // Total number of permutation -> P(n,r) = (n!)/((n-r)!)
             // n: objects (in this case 9)
             // r: objects taken at a time (in this case 2)          
-            assert (pairs.size() == factorial(galaxies.size()) / factorial(galaxies.size() - 2));
 
-            if (pairs.size() == factorial(galaxies.size()) / factorial(galaxies.size() - 2))
-            {
-                System.out.println("ASSERT OKAY");
-            }
-            
-            /*
-            for (var line : actualSpace) {
-                System.out.println(line);
-            }
-
-            for (var element : pairs) {
-                System.out.println(element);
-            }*/
-            System.out.println(pairs.size());
+            // Only asserting for a small galaxy value because the factorial function would result in an overflow
+            // which would mean that the denominator would be 0 and it would cause a division by 0 error
+            if (galaxies.size() <= 10)
+                assert ((long)pairs.size() == factorial((long)galaxies.size()) / factorial((long)galaxies.size() - 2));
 
             int rowDistance = 0;
             int colDistance = 0;
             for (Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> element : pairs) {
 
-
                 rowDistance = Math.abs(element.getKey().getKey() - element.getValue().getKey());
                 colDistance = Math.abs(element.getKey().getValue() - element.getValue().getValue());
 
-                System.out.println("Distance between " + element.getKey() + " and " + element.getValue() + " is " + rowDistance + " + " + colDistance + " = " + (rowDistance + colDistance));
-
                 res += rowDistance + colDistance;
             }
-
 
             myReader.close();
             System.out.println(String.format("Result: %d", res));
