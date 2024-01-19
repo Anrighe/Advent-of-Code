@@ -57,7 +57,6 @@ public class Solution {
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == '#') {
                 galaxies.add(new Pair<Integer, Integer>(currentLine, i));
-                System.out.println("Added galaxy at " + currentLine + ", " + i);
             }
         }
     }
