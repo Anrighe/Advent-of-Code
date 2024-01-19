@@ -57,7 +57,6 @@ public class Solution {
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == '#') {
                 galaxies.add(new Pair<Integer, Integer>(currentLine, i));
-                //System.out.println("Added galaxy at " + currentLine + ", " + i);
             }
         }
     }
@@ -123,11 +122,19 @@ public class Solution {
      * Before calcolating the shortest distances between all pairs, the input text must be treated:
      * 1. The rows that have no galaxies (only contain dots) must be expanded by duplicating them
      * 2. The columns that have no galaxies must be expanded by transposing the actual space
+     * 
+     * --------------------------------------------------------------------------------------------
+     * 
+     * The second part of the problem asked to expand empty rows and colums by 100000 times instead of duplicating them.
+     * This would have resulted in a very large input file and the program would have taken a very long time to run.
+     * Instead of expanding every empty rows/colums I decided to save the location of every empty row/column and 
+     * then sum the empty space between the pairs of galaxies if there is an empty row/column between them.
      *
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
         long res = 0L;
+        int expansionFactor = 100000 - 1; // -1 because the original row/column is already in the input file
 
         String inputFile = "input.txt";
         int currentLine = 0;
@@ -143,46 +150,27 @@ public class Solution {
             List<Integer> emptyRows = new ArrayList<Integer>();
             List<Integer> emptyCols = new ArrayList<Integer>();
 
-            // Reading the input file and adding expanding the rows that have no galaxies (only contain dots)
+            // Reading the input file and marking the rows that have no galaxies (only contain dots)
             while (myReader.hasNextLine()) {
                 
                 String line = myReader.nextLine();
-                
-                if (onlyContainDots(line)) {
-                    //actualSpace.add(line); // not adding it in part 2
+
+                if (onlyContainDots(line))
                     emptyRows.add(currentLine);
-                    //currentLine++; // not adding it in part 2
-                }
+
                 actualSpace.add(line);
                 currentLine++;
             }
 
-            System.out.println("Empty rows: " + emptyRows.toString());
-
-            // Expanding the columns that have no galaxies by transposing the actual space
-            // then duplicating the rows that have no galaxies (only contain dots)
-            // and then transposing again to get the original space
+            // Expanding the columns that have no galaxies by transposing the actual space 
+            // (this time no expansion is needed here), and then transposing again to get the original space
             List<String> actualSpaceTransposed = transposeStringList(actualSpace);
-            //List<String> actualSpaceTransposedTmp = new ArrayList<>();
 
             for (int i = 0; i < actualSpaceTransposed.size(); ++i) {
                 String line = actualSpaceTransposed.get(i);
-                //actualSpaceTransposedTmp.add(line);
 
-                if (onlyContainDots(line)) {
+                if (onlyContainDots(line))
                     emptyCols.add(i);
-                    //actualSpaceTransposedTmp.add(line); // not adding it in part 2
-                }
-            }
-
-            System.out.println("Empty cols: " + emptyCols.toString());
-
-            //actualSpaceTransposed = actualSpaceTransposedTmp;
-            //actualSpace = transposeStringList(actualSpaceTransposed);
-
-            System.out.println("actual space:");
-            for (String line : actualSpace) {
-                System.out.println(line);
             }
 
             // Adding the galaxies to the set
@@ -221,26 +209,18 @@ public class Solution {
 
                 for (int emptyRow : emptyRows) {
                     if (element.getKey().getKey() < emptyRow && element.getValue().getKey() > emptyRow ||
-                        element.getKey().getKey() > emptyRow && element.getValue().getKey() < emptyRow) {
-                        rowDistance += 999999;
-                        //System.out.println("The pair " + element.getKey().toString() + " and " + element.getValue().toString() + " have the empty row " + emptyRow + " between them");
-                        //System.out.println("because " + element.getKey().getKey() + " < " + emptyRow + " < " + element.getValue().getKey());
-                    }
+                        element.getKey().getKey() > emptyRow && element.getValue().getKey() < emptyRow)
+                        rowDistance += expansionFactor;
                 }
                 
                 colDistance = Math.abs(element.getKey().getValue() - element.getValue().getValue());
                 
                 for (int emptyColumn : emptyCols) {
                     if (element.getKey().getValue() < emptyColumn && element.getValue().getValue() > emptyColumn || 
-                        element.getKey().getValue() > emptyColumn && element.getValue().getValue() < emptyColumn) {
-                        colDistance += 999999;
-                        //System.out.println("The pair " + element.getKey().toString() + " and " + element.getValue().toString() + " have the empty column " + emptyColumn + " between them");
-                    }
+                        element.getKey().getValue() > emptyColumn && element.getValue().getValue() < emptyColumn)
+                        colDistance += expansionFactor;
                 }
-
-                //System.out.println("total distance for pair " + element.getKey().toString() + " and " + element.getValue().toString() + ": " + (rowDistance + colDistance));
                 res += rowDistance + colDistance;
-                System.out.println("res: " + res);
             }
 
             myReader.close();
