@@ -71,7 +71,20 @@ public class Main {
             System.out.println();
         }
     }
-
+    
+    /**
+     * Computes the center coordinates of matches based on the starting and ending positions
+     * of a detected pattern in the matrix.
+     *
+     * The method calculates the middle point between the starting and ending coordinates and
+     * returns it as a list containing a single {@code Coordinate}.
+     *
+     * @param startingRow The row index of the starting position of the match.
+     * @param startingCol The column index of the starting position of the match.
+     * @param endingRow The row index of the ending position of the match.
+     * @param endingCol The column index of the ending position of the match.
+     * @return A list containing one {@code Coordinate}, which is the middle point of the match.
+     */
     public static List<Coordinate> getMatchesCenterCoordinates(
         int startingRow, 
         int startingCol,
@@ -84,7 +97,6 @@ public class Main {
             new Coordinate(startingRow, startingCol), 
             new Coordinate(endingRow, endingCol)
         ));
-
 
         return coordinateList;
     }
