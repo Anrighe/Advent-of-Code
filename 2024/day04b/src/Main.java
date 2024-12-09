@@ -5,6 +5,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.*;
 
+/**
+ * The goal is to find occurrences of the patterns * "MAS" and "SAM" forming X-shapes in a 2D character matrix. 
+ * Each X-shape consists of two diagonally arranged patterns, which can be forward or reversed.
+ *
+ * The program reads a matrix from an input file, identifies diagonal patterns in two 
+ * directions (top-left to bottom-right and top-right to bottom-left), calculates the 
+ * center points of the matches, and counts the total number of unique X-shaped patterns.
+ *
+ * Key steps include:
+ * - Parsing the input file into a matrix.
+ * - Extracting diagonal strings.
+ * - Matching patterns using regular expressions.
+ * - Calculating and counting unique X-shaped patterns.
+ *
+ * Output: Total number of X-shaped "MAS" patterns.
+ */
+
 public class Main {
 
     public static final String INPUT_FILE_LOCATION = "../input.txt";
@@ -71,7 +88,7 @@ public class Main {
             System.out.println();
         }
     }
-    
+
     /**
      * Computes the center coordinates of matches based on the starting and ending positions
      * of a detected pattern in the matrix.
