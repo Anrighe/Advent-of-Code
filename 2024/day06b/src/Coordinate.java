@@ -73,6 +73,7 @@ public class Coordinate {
     }
 
     public static Coordinate calculateMiddlePoint(Coordinate coordinate, Coordinate coordinate2) {
+        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'calculateMiddlePoint'");
     }
 }
