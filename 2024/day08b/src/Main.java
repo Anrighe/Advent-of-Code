@@ -211,20 +211,16 @@ public class Main {
 
             for (Character antennaType : antennas.keySet()) {
                 int antennasCountOfThisType = antennas.get(antennaType).size();
-                System.out.println(antennasCountOfThisType);
                 
                 if (antennasCountOfThisType > 1) {
                     for (Antenna antenna : antennas.get(antennaType)) {
                         tmpAntinode = new Antinode(antenna.getRow(), antenna.getColumn());
-
                         antinodes.add(tmpAntinode);
                     }
                 }
             }
-
             result = antinodes.size();
-            
-            System.out.println(antinodes);
+        
             System.out.println(String.format("The total number of antinodes is: %s", result));
 
         } catch (FileNotFoundException e) {
