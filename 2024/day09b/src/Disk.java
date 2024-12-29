@@ -148,7 +148,7 @@ public class Disk {
         for (int index = 0; index < toString().length(); ++index) {
             memorySlotChar = toString().charAt(index);
             if (memorySlotChar != '.') 
-                result += Character.getNumericValue(memorySlotChar) * index;
+                result += (long) Character.getNumericValue(memorySlotChar) * (long) index;
 
             System.out.println(result);
         }
