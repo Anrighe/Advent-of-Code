@@ -64,7 +64,7 @@ public class Main {
             int memoryAnalyzerIndex = disk.getMemory().size() - 1;
             while (memoryAnalyzerIndex >= 0) {
 
-                for (int i = 0; i < disk.getMemory().size(); ++i) {
+                for (int i = 0; i < memoryAnalyzerIndex; ++i) {
                     //System.out.print(".");
                     MemoryBlock memoryBlock = disk.getMemory().get(i);
                     if (memoryBlock instanceof EmptyMemoryBlock && disk.getMemory().get(memoryAnalyzerIndex) instanceof FileMemoryBlock &&
