@@ -1,7 +1,5 @@
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Manages the memory layout and operations on the memory blocks.
@@ -128,7 +126,6 @@ public class Disk {
                 compactedIndex = compactEmptyMemorySpaces(secondElementIndex + 1); // A new element has been added so the second index is shifted by 1
             } else 
                 compactedIndex = compactEmptyMemorySpaces(secondElementIndex);
-            //System.out.println("After compacting: " + memory.toString());
 
             if (firstElementIndex == firstEmptyMemoryBlockIndexCache)
                 firstEmptyMemoryBlockIndexCache = getNextEmptyMemoryStartingFromIndex(firstElementIndex);
@@ -164,15 +161,12 @@ public class Disk {
     public long calculateChecksum() {
         long result = 0;
         long index = 0;
-        int memorySize = memory.size();
 
         for (MemoryBlock memoryBlock : memory) {
             if (memoryBlock instanceof FileMemoryBlock && memoryBlock.getSize() != 0) {
 
                 for (int i = 0; i < memoryBlock.getSize(); ++i) {
                     result += ((FileMemoryBlock) memoryBlock).getFileBlockId() * index;
-                    //System.out.println(String.format("%s * %s", ((FileMemoryBlock) memoryBlock).getFileBlockId(), index));
-                    System.out.println(result + " | " + i + "/" + memorySize);
                     index++;
                 }
             } else {
@@ -181,9 +175,7 @@ public class Disk {
                 else
                     index++;
             }
-
         }
-
 
         return result;
     }
