@@ -4,6 +4,6 @@
  */
 interface MemoryBlock {
     public boolean isEmptyBlock();
-    public int getSize();
+    public long getSize();
     public String toString();
 }

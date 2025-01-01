@@ -1,10 +1,14 @@
 /** Class representing an empty memory block. */
 public class EmptyMemoryBlock implements MemoryBlock {
 
-    private int size;
+    private long size;
 
     /** Constructs an empty memory block. */
     public EmptyMemoryBlock(int size) {
+        this.size = (long) size;
+    }
+
+    public EmptyMemoryBlock(long size) {
         this.size = size;
     }
 
@@ -20,7 +24,7 @@ public class EmptyMemoryBlock implements MemoryBlock {
      * Gets the size of the empty memory block.
      * @return Empty memory block size.
      */    
-    public int getSize() {
+    public long getSize() {
         return size;
     }
 
@@ -29,6 +33,10 @@ public class EmptyMemoryBlock implements MemoryBlock {
      * @param fileBlockId New empty memory block size.
      */        
     public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setSize(long size) {
         this.size = size;
     }
 

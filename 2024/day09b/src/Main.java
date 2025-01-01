@@ -61,35 +61,51 @@ public class Main {
             disk.updateFirstEmptyMemoryBlockIndexCache();
 
             //System.out.println("Memory before: " + disk.getMemory());
-            int memoryAnalyzerIndex = disk.getMemory().size() - 1;
-            while (memoryAnalyzerIndex >= 0) {
-
-                for (int i = 0; i < memoryAnalyzerIndex; ++i) {
-                    //System.out.print(".");
-                    MemoryBlock memoryBlock = disk.getMemory().get(i);
-                    if (memoryBlock instanceof EmptyMemoryBlock && disk.getMemory().get(memoryAnalyzerIndex) instanceof FileMemoryBlock &&
-                        memoryAnalyzerIndex > i && memoryBlock.getSize() >= disk.getMemory().get(memoryAnalyzerIndex).getSize()) {
-
-                        //System.out.println("swapping " + memoryBlock + " with " + disk.getMemory().get(memoryAnalyzerIndex));
-                        disk.swapElements(i, memoryAnalyzerIndex);
-                        //System.out.println(disk.getMemory());
-                        memoryAnalyzerIndex--;
-                        System.out.println(memoryAnalyzerIndex);
-                        i = disk.getFirstEmptyMemoryBlockIndexCache() - 1; // -1 because at the start of the for it increments by 1
-                        System.out.println("Starting inner for from " + i+1 + " instead of 0");
-                        //continue;
-
-                        // TODO : if everything fails: compact memory
+            //String prevMemoryRepresentation = "";
+            
+            //while (prevMemoryRepresentation != disk.getMemory().toString()) {
+                //prevMemoryRepresentation = disk.getMemory().toString();
+                
+                int memoryAnalyzerIndex = disk.getMemory().size() - 1;
+                boolean decrementedMemoryAnalyzerIndexInFor = false;
+                while (memoryAnalyzerIndex >= 0) {
+    
+                    for (int i = disk.getFirstEmptyMemoryBlockIndexCache(); i < memoryAnalyzerIndex; ++i) {
+                        MemoryBlock memoryBlock = disk.getMemory().get(i);
+                        if (memoryBlock instanceof EmptyMemoryBlock && disk.getMemory().get(memoryAnalyzerIndex) instanceof FileMemoryBlock &&
+                            memoryAnalyzerIndex > i && memoryBlock.getSize() >= disk.getMemory().get(memoryAnalyzerIndex).getSize()) {
+                            
+                            //System.out.print("------------------------------------------------------\n\n" + disk.getMemory() + "\n");
+                            
+                            //System.out.println("swapping " + memoryBlock + " position (" + i +  ") " + " with " + disk.getMemory().get(memoryAnalyzerIndex) + " position (" + memoryAnalyzerIndex + ")");
+                            memoryAnalyzerIndex = disk.swapElements(i, memoryAnalyzerIndex);
+                            //System.out.println(disk.getMemory().toString());
+                            memoryAnalyzerIndex--; // TODO: POTENTIAL PROBLEM?
+                            decrementedMemoryAnalyzerIndexInFor = true;
+                            i = disk.getFirstEmptyMemoryBlockIndexCache() - 1; // -1 because at the start of the for it increments by 1
+                            /*if (newI > i) {
+    
+                                i = newI;
+                                }*/
+                            System.out.println(memoryAnalyzerIndex + ": starting inner for from " + (i+1));
+                            //continue;
+                        }
                     }
+    
+                    //System.out.println(memoryAnalyzerIndex);
+                    //if (!decrementedMemoryAnalyzerIndexInFor)
+                        memoryAnalyzerIndex--;
+                    //else
+                        //decrementedMemoryAnalyzerIndexInFor = false;
+                    //System.out.print(".");
                 }
+                System.out.println("Memory after: " + disk.getMemory().toString());
 
-                memoryAnalyzerIndex--;
-                System.out.println(memoryAnalyzerIndex);
-                //System.out.print(".");
-            }
-            //System.out.println("Memory after: " + disk.toString());
 
-            System.out.println(String.format("The result is: %s", disk.calculateChecksumFromStringMemoryConversionToString()));
+                
+            //}
+
+            System.out.println(String.format("The result is: %s", disk.calculateChecksum()));
 
         } catch (FileNotFoundException e) {
             System.err.println(String.format("Error: could not find the input in the specified location: %s", e.toString()));

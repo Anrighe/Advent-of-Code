@@ -2,7 +2,7 @@
 public class FileMemoryBlock implements MemoryBlock {
     
     private long fileBlockId;
-    private int size;
+    private long size;
 
     /**
      * Constructs a memory block with a specific Id.
@@ -33,7 +33,7 @@ public class FileMemoryBlock implements MemoryBlock {
      * Gets the size of the file block.
      * @return File block size.
      */    
-    public int getSize() {
+    public long getSize() {
         return size;
     }
 
