@@ -8,7 +8,11 @@ import java.io.*;
  *
  * The program operates in the following steps:
  * 1. Parses the input disk map to initialize the memory layout.
- * 2. Iteratively moves file blocks to the leftmost free space to eliminate gaps.
+ * 2. Iteratively checks for free space and if found, moves the rightmost entire file block to the leftmost 
+ *     free space to eliminate gaps. If the file dimension is less than the empty space dimension,
+ *      manages both the empty space that remains from the movement and if present, compacts all the empty 
+ *       spaces from the previously occupied spaces from the FileMemoryBlock.
+ *    If no empty space is found to accomodate the whole file, the process skips to the next file (to the left).
  * 3. Computes a checksum by summing the product of each file block's position and its ID.
  *
  * The checksum provides a numeric representation of the compacted disk's state.
@@ -29,6 +33,7 @@ public class Main {
             int currentFileId = 0;
             boolean readingFile = true; // If not reading a file, it means it's reading a free space block
             
+            // Building memory blocks inside memory of the disk
             while ((inputLine = br.readLine()) != null) {
 
                 for (char currentChar : inputLine.toCharArray()) {
@@ -50,28 +55,35 @@ public class Main {
             }
             br.close();
 
+            // Finds the first empty memory block available and updates the cache of the disk with its location
             disk.updateFirstEmptyMemoryBlockIndexCache();
                 
-            int memoryAnalyzerIndex = disk.getMemory().size() - 1;
-            while (memoryAnalyzerIndex >= 0) {
+            // The Memory Analyzer Index is used to point to iterate trough File Memory Block (from the rightmost)
+            int fileMemoryIndex = disk.getMemory().size() - 1;
 
-                for (int i = disk.getFirstEmptyMemoryBlockIndexCache(); i < memoryAnalyzerIndex; ++i) {
-                    MemoryBlock memoryBlock = disk.getMemory().get(i);
+            while (fileMemoryIndex >= 0) {
+
+                for (int emptyMemoryIndex = disk.getFirstEmptyMemoryBlockIndexCache(); emptyMemoryIndex < fileMemoryIndex; ++emptyMemoryIndex) {
+                    MemoryBlock memoryBlock = disk.getMemory().get(emptyMemoryIndex);
+
+                    // If the found memory space is Empty, and the other block is a File Memory Block
+                    //  if the File Memory Block is to the right of the Empty Memory Block and
+                    //   the Empty Memory Block is big enough to accomodate the File Memory Block
                     if (memoryBlock instanceof EmptyMemoryBlock && 
-                        disk.getMemory().get(memoryAnalyzerIndex) instanceof FileMemoryBlock &&
-                        memoryAnalyzerIndex > i && 
-                        memoryBlock.getSize() >= disk.getMemory().get(memoryAnalyzerIndex).getSize()) {
+                        disk.getMemory().get(fileMemoryIndex) instanceof FileMemoryBlock &&
+                        fileMemoryIndex > emptyMemoryIndex && 
+                        memoryBlock.getSize() >= disk.getMemory().get(fileMemoryIndex).getSize()) {
 
                         
                         // Swapping elements and getting back the index of the compacted empty memory space (could be the same)
-                        memoryAnalyzerIndex = disk.swapElements(i, memoryAnalyzerIndex);
-                        memoryAnalyzerIndex--;
+                        fileMemoryIndex = disk.swapElements(emptyMemoryIndex, fileMemoryIndex);
+                        fileMemoryIndex--;
 
                         // Decrementing by 1 because at the start of the for it increments by 1
-                        i = disk.getFirstEmptyMemoryBlockIndexCache() - 1; 
+                        emptyMemoryIndex = disk.getFirstEmptyMemoryBlockIndexCache() - 1; 
                     }
                 }
-                memoryAnalyzerIndex--;
+                fileMemoryIndex--; // Regardless of swaps, the file index is decremented
             }
             System.out.println(String.format("The result is: %s", disk.calculateChecksum()));
 

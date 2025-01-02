@@ -1,4 +1,6 @@
-/** Represents a memory block identified by a file block ID. */
+/** 
+ * Represents a memory block with its respecive size, identified by a file block Id. 
+ */
 public class FileMemoryBlock implements MemoryBlock {
     
     private long fileBlockId;
@@ -7,6 +9,7 @@ public class FileMemoryBlock implements MemoryBlock {
     /**
      * Constructs a memory block with a specific Id.
      * @param fileBlockId File ID for the block.
+     * @param size the size of the block.
      */    
     public FileMemoryBlock(long fileBlockId, int size) {
         this.fileBlockId = fileBlockId;

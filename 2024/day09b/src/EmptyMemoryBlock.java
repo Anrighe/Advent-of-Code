@@ -1,4 +1,6 @@
-/** Class representing an empty memory block. */
+/** 
+ * Represents an empty memory block, with its corresponding size.
+ */
 public class EmptyMemoryBlock implements MemoryBlock {
 
     private long size;
@@ -8,6 +10,7 @@ public class EmptyMemoryBlock implements MemoryBlock {
         this.size = (long) size;
     }
 
+    /** Constructs an empty memory block. */
     public EmptyMemoryBlock(long size) {
         this.size = size;
     }
