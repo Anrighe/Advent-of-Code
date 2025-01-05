@@ -165,12 +165,10 @@ public class Main {
                 coordinatesToVisit.add(startingCoordinate);
 
                 while(!coordinatesToVisit.isEmpty()) {
-                    System.out.println(coordinatesToVisit);
                     Coordinate currentCoordinate = coordinatesToVisit.remove();
                     int currentValue = getValuefromCoordinate(matrix, currentCoordinate);
                     if (currentValue == 9 && !startArrivalTrackingMap.get(startingCoordinate).contains(currentCoordinate)) {
                         startArrivalTrackingMap.get(startingCoordinate).add(currentCoordinate);
-                        System.out.println("value from coordinates " + currentCoordinate + " is 9");
                         result++;
                         continue;
                     }
