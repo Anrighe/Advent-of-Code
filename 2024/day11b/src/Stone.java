@@ -41,6 +41,7 @@ public class Stone {
         return List.of(firstStone, secondStone);
     }
 
+    /** Two stones are equal if their value is equal */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Stone) {

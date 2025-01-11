@@ -1,11 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.management.RuntimeErrorException;
 
@@ -39,6 +36,15 @@ public class Main {
         return String.valueOf(value).length();
     }
 
+    /**
+     * Inserts a specified quantity of a stone into the stone quantity map.
+     * If the stone already exists in the map, the quantity is incremented by the specified amount.
+     * If the stone does not exist in the map, it is added with the specified quantity.
+     *
+     * @param stone the stone to be inserted or updated in the map
+     * @param stoneQuantityMap the map that holds the quantities of different stones
+     * @param quantityToInsert the quantity of the stone to be inserted or added to the existing quantity
+     */
     private static void insertStoneInQuantityMap(Stone stone, Map<Stone, Long> stoneQuantityMap, Long quantityToInsert) {
         if (!stoneQuantityMap.containsKey(stone)) {
             stoneQuantityMap.put(stone, quantityToInsert);
@@ -47,25 +53,15 @@ public class Main {
         }
     }
 
-    private static long getNumberOfStones(Map<Stone, Long> stoneQuantityMap) {
-        long result = 0;
-        for (Stone stone : stoneQuantityMap.keySet()) {
-            result += stoneQuantityMap.get(stone);
-        }
-        return result;
-    }
-
     /**
-     * Processes a stone according to the defined transformation rules:
-     * 
-     * 1. If the stone's value is 0, it transforms into 1.
-     * 2. If the stone's value has an even number of digits, it splits into two stones:
-     *    - Left half of the digits form the first stone.
-     *    - Right half of the digits form the second stone.
-     * 3. If none of the above apply, the stone's value is multiplied by a constant (2024).
-     * 
-     * @param stone The {@link Stone} to process.
-     * @return A list of {@link Stone} objects if the stone splits; otherwise, an empty list.
+     * Simulates a blink by processing a map of stones and their quantities, applying the following rules:
+     *   - Rule 1: Stones with a value of 0 transform into stones with a value of 1.
+     *   - Rule 2: Stones with an even number of digits split into two stones.
+     *   - Rule 3: Stones with an odd number of digits are multiplied by a constant factor.
+     *
+     * @param stoneQuantityMap a map containing stones and their quantities
+     * @return a new map with the transformed stones and their updated quantities
+     * @throws RuntimeErrorException if a stone with an even number of digits does not split into exactly two stones
      */
     private static Map<Stone, Long> optimizedBlink(Map<Stone, Long> stoneQuantityMap) throws RuntimeErrorException {
         
@@ -105,6 +101,10 @@ public class Main {
         File file = new File(INPUT_FILE_LOCATION);
         long result = 0;
         
+        // A map with the stone respective quantity is used to avoid to create every single {@class Stone} object
+        //  which would be computationally not sustainable. This can be done because the behaviour of each stone can
+        //   be summarized by one single element (the entry of this Map) which memorizes the amount of stones with the
+        //    same value.
         Map<Stone, Long> stoneQuantityMap = new HashMap<>();
 
         try {
@@ -129,7 +129,6 @@ public class Main {
             System.out.println(stoneQuantityMap);
 
             for (int blinkCounter = 0; blinkCounter < BLINKING_AMOUNT; ++blinkCounter) {
-
                 stoneQuantityMap = optimizedBlink(stoneQuantityMap);
             }
 
