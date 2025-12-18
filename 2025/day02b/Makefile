@@ -1,5 +1,5 @@
 CXX      := g++
-CXXFLAGS := -std=c++17 -Wall -Wextra -Wpedantic -O3
+CXXFLAGS := -std=c++17 -Wall -Wextra -Wpedantic -O3 -g
 TARGET   := gift_shop
 SRC      := src/main.cpp
 

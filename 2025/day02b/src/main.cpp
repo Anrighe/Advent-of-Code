@@ -8,50 +8,49 @@
 #define CHAR_RANGE_DELIMITER ','
 #define CHAR_INNER_RANGE_DELIMITER '-'
 
-/** ValueRange class represents a range of integer values with a lower and upper bound */
+/**
+ * ValueRange represents an inclusive range of product IDs and provides functionality to detect and sum invalid IDs according to the puzzle rules.
+ * An ID is considered invalid if it consists of a digit sequence repeated at least twice (e.g. 11, 6464, 123123, 1111111).
+ */
 class ValueRange {
     private:
         long lower_bound;
         long upper_bound;
 
         /**
-         * Splits a string exactly in the middle into two equal parts
-         * @param string_to_split The string to split. Must have an even number of characters
-         * @return A pair of strings representing the first and second halves of the input string
-         * @throws std::runtime_error if the string length is not even
+         * Determines whether a product ID is invalid by checking if it is composed of a non-empty 
+         *  digit sequence repeated at least twice to form the entire number.
+         *
+         * Examples of invalid IDs:
+         *  - 11        ("1" repeated twice)
+         *  - 6464      ("64" repeated twice)
+         *  - 123123    ("123" repeated twice)
+         *  - 1111111   ("1" repeated seven times)
+         *
+         * Examples of valid IDs:
+         *  - 101
+         *  - 1234
+         *
+         * @param index The product ID to validate
+         * @return true if the ID is invalid, false otherwise
          */
-        static std::pair<std::string, std::string> split_string_middle(const std::string &string_to_split) {
-            std::size_t string_to_split_length = string_to_split.length();
-            if (string_to_split_length % 2 != 0) {
-                throw std::runtime_error("Could not split a string in two equal part if the number of characters is not even");
-            }
-
-            std::size_t middle = (string_to_split_length / 2);
-
-            return {
-                string_to_split.substr(0, middle),
-                string_to_split.substr(middle)
-            };
-        }
-
         static bool is_index_invalid(const long index) {
             std::string index_string = std::to_string(index);
 
             std::size_t middle = index_string.length() / 2;
 
-            for (std::size_t token_index = 1; token_index < middle; ) {
-                std::string token = index_string.substr(0, token_index);
-                std::cout<<"Token: "<<token<<"\n";
+            for (std::size_t token_index = 0; token_index <= middle; ++token_index) {
+                std::string token = index_string.substr(0, token_index + 1);
 
                 std::size_t position = index_string.find(token);
                 std::size_t total_occurrences_found = 0;
-                std::cout<<position<<"\n";
+
                 while (position != std::string::npos) {
                     ++total_occurrences_found;
                     position = index_string.find(token, position + token.length());
                 } 
 
-                if ((token.length() * total_occurrences_found) ==  index_string.length()) {
+                if (index_string != token && (token.length() * total_occurrences_found) ==  index_string.length()) {
                     return true;
                 }
             }
